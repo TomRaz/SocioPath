@@ -3,13 +3,13 @@
 
 typedef struct user_t{
 	char username[USERNAME_LEN + 1];
-	char password[PASS_LEN + 1]; //password is saved AFTER encryption
+	char password[ENC_PASS_LEN + 1]; //password is saved AFTER encryption
 	int randomNum;
 	char securityAnswer[SECURITY_ANS_LEN + 1];
 
 } User;
 
-int passEncrypt(char *pass, int randomNum){
+void passEncrypt(char *pass, int randomNum, char* result){
 	int ans = pass[0];
 	int i;
 
@@ -20,18 +20,20 @@ int passEncrypt(char *pass, int randomNum){
 		ans = ans << 4;
 	else
 		ans = ans >> 6;
+	ans = ans^randomNum;
+	itoa(ans, result, 2);
 }
 
 User* newUser(char *name, char* pass, char* ans){
 
 	srand(time(NULL));
-	int randomNum = rand();
-	int encryptedPass;
+	int randomNum = rand(), passInt;
+	char encryptedPass[ENC_PASS_LEN + 1];
 	User* user = malloc(sizeof(User));
 	if (user == NULL)
 		return NULL;
 
-	encryptedPass = passEncrypt(pass, randomNum);
+	passEncrypt(pass, randomNum, encryptedPass);
 
 	strcpy(user->username, name);
 	strcpy(user->password, encryptedPass);
