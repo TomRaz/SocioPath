@@ -1,7 +1,6 @@
 #include "User.h"
 #include "../Common/CommonFunctions.h"
 
-typedef enum { Valid, Invalid } pass_test;
 
 typedef struct user_t{
 	char username[USERNAME_LEN + 1];
@@ -49,22 +48,59 @@ User* DesrializeUser(char *str){
 	return user;
 }
 
-pass_test checkPassValidity(char *pass){ //check password string validity BEFORE encryption
-	int i;
-	bool hasLower, hasUpper, hasDigit;
+valid_test checkValidity(char *str, field fld ){ //check string validity for password BEFORE encryption or username
+	int i, len;
+	bool hasLower = FALSE, hasUpper = FALSE, hasDigit = FALSE, hasSpace = FALSE;
 	
-	for (i = 0; i < PASS_LEN; i++){
-		if (pass[i] == '\0' || pass == NULL)
-			return Invalid;
-		if (isupper(pass[i]))
-			hasUpper = TRUE;
-		if (islower(pass[i]))
-			hasLower = TRUE;
-		if (isdigit(pass[i]))
-			hasDigit = TRUE;
-		if (!(hasDigit || hasLower || hasUpper)) //if char isn't lower, upper or a digit
+	if (str == NULL)
+		return Invalid;
+
+	switch (fld)
+	{
+	case username:	{
+		len = USERNAME_LEN;
+		break;
+	}
+	case password: {
+		len = PASS_LEN;
+		break;
+	}
+	default: len = 0;
+	}
+	
+
+	for (i = 0; i < len; i++){
+		
+		if (str[i] == '\0')
+			break;
+		if (isalnum(str[i]) || isspace(str[i])){
+			
+			if (isupper(str[i]))
+				hasUpper = TRUE;
+			if (islower(str[i]))
+				hasLower = TRUE;
+			if (isdigit(str[i]))
+				hasDigit = TRUE;
+			if (isspace(str[i]))
+				hasSpace = TRUE;
+		}
+		else
 			return Invalid;
 	}
-	if (hasDigit && hasLower && hasUpper)
+	switch (fld){
+	case username:
+	{
 		return Valid;
+		break;
+	}
+	case password:
+	{
+		if (hasDigit && hasLower && hasUpper && (hasSpace == FALSE) && i == len) //length is 8 and contains lower, upper and a digit
+			return Valid;
+		else
+			return Invalid;
+		break;
+	}
+	return Invalid;
+	}
 }
