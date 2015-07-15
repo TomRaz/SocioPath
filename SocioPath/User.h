@@ -12,4 +12,9 @@
 #define SEP_LEN 3
 #define MAX_INT_LEN 8
 
+char* SerializeUser(User *user);
+User* DesrializeUser(char *str);
+pass_test checkPassValidity(char *pass);
+
+
 #endif

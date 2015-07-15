@@ -1,10 +1,6 @@
 #include "CommonFunctions.h"
 
 
-void test(){
-    printf("hey");
-}
-
 char** alloc2Darr(int rows, int cols){
 	int i;
 	char** res = malloc(rows*sizeof(char*));
