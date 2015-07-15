@@ -33,12 +33,14 @@ User* DesrializeUser(char *str){
 	User *user = malloc(sizeof(User));
 	
 	if (str == NULL || user == NULL) return NULL; //is necessary?
-	char** res = splitStr(str, USR_WRD_CNT, SECURITY_ANS_LEN);
+	char** res = splitStr(str, USR_WRD_CNT, SECURITY_ANS_LEN, SEPERATOR);
 
 	strcpy(user->username, res[0]);
 	strcpy(user->password, res[1]);
-	user->randomNum = *res[2]
+	strcpy(user->randomNum, atoi(res[2])); //string to int for randomNum
 	strcpy(user->securityAnswer, res[3]);
 
+	free2Darr(res, 4);
 
+	return user;
 }

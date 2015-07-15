@@ -4,9 +4,9 @@
 
 void test();
 
-char* alloc2Darr(int rows, int cols);
-char* free2Darr(int rows, int cols);
+char** alloc2Darr(int rows, int cols);
+char** free2Darr(char** arr, int rows);
 
-char *splitStr(char* str, int wordCount, int maxWordLen);
+char** splitStr(char* str, int wordCount, int maxWordLen, char* sep_str);
 
 #endif
