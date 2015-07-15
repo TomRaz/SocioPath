@@ -1,14 +1,47 @@
 #include "User.h"
 #include "../Common/CommonFunctions.h"
 
-
 typedef struct user_t{
 	char username[USERNAME_LEN + 1];
-	char password[PASS_LEN+1]; //password is saved AFTER encryption
+	char password[PASS_LEN + 1]; //password is saved AFTER encryption
 	int randomNum;
-	char securityAnswer[SECURITY_ANS_LEN+1];
+	char securityAnswer[SECURITY_ANS_LEN + 1];
 
 } User;
+
+int passEncrypt(char *pass, int randomNum){
+	int ans = pass[0];
+	int i;
+
+	for (i = 1; i < PASS_LEN; i++){
+		ans = ans & pass[i];
+	}
+	if (ans % 2 == 0)
+		ans = ans << 4;
+	else
+		ans = ans >> 6;
+}
+
+User* newUser(char *name, char* pass, char* ans){
+
+	srand(time(NULL));
+	int randomNum = rand();
+	int encryptedPass;
+	User* user = malloc(sizeof(User));
+	if (user == NULL)
+		return NULL;
+
+	encryptedPass = passEncrypt(pass, randomNum);
+
+	strcpy(user->username, name);
+	strcpy(user->password, encryptedPass);
+	user->randomNum = randomNum;
+	strcpy(user->securityAnswer, ans);
+
+	return user;
+
+}
+
 
 char* SerializeUser(User *user){
 	
@@ -31,49 +64,37 @@ char* SerializeUser(User *user){
 	return ans;
 }
 
-User* DesrializeUser(char *str){
+User* DeserializeUser(char *str){
 	
-	User *user = malloc(sizeof(User));
-	
-	if (str == NULL || user == NULL) return NULL; //is necessary?
+		if (str == NULL || user == NULL) return NULL; //is necessary?
 	char** res = splitStr(str, USR_WRD_CNT, SECURITY_ANS_LEN, SEPERATOR);
 
-	strcpy(user->username, res[0]);
-	strcpy(user->password, res[1]);
-	strcpy(user->randomNum, atoi(res[2])); //string to int for randomNum
-	strcpy(user->securityAnswer, res[3]);
+	User *user = newUser(res[0], res[1], atoi(res[2]), res[3]); //password already encrypted
 
 	free2Darr(res, 4);
 
 	return user;
 }
 
-valid_test checkValidity(char *str, field fld ){ //check string validity for password BEFORE encryption or username
+valid_test checkValidity(char *str, field fld ){ //fld = username OR password (before encryption)
 	int i, len;
 	bool hasLower = FALSE, hasUpper = FALSE, hasDigit = FALSE, hasSpace = FALSE;
 	
 	if (str == NULL)
 		return Invalid;
 
-	switch (fld)
-	{
-	case username:	{
+	if (fld == username)
 		len = USERNAME_LEN;
-		break;
-	}
-	case password: {
+	if (fld == password)
 		len = PASS_LEN;
-		break;
-	}
-	default: len = 0;
-	}
-	
+	else
+		len = 0; //error
 
 	for (i = 0; i < len; i++){
 		
 		if (str[i] == '\0')
 			break;
-		if (isalnum(str[i]) || isspace(str[i])){
+		if (isalnum(str[i]) || str[i]== ' '){
 			
 			if (isupper(str[i]))
 				hasUpper = TRUE;
@@ -81,26 +102,21 @@ valid_test checkValidity(char *str, field fld ){ //check string validity for pas
 				hasLower = TRUE;
 			if (isdigit(str[i]))
 				hasDigit = TRUE;
-			if (isspace(str[i]))
+			if (str[i] == ' ')
 				hasSpace = TRUE;
 		}
 		else
 			return Invalid;
 	}
-	switch (fld){
-	case username:
-	{
-		return Valid;
-		break;
-	}
-	case password:
-	{
+	if (fld == password){
 		if (hasDigit && hasLower && hasUpper && (hasSpace == FALSE) && i == len) //length is 8 and contains lower, upper and a digit
 			return Valid;
 		else
 			return Invalid;
-		break;
 	}
+	if (fld == username && i > 0)
+		return Valid;
+	
 	return Invalid;
 	}
-}
+

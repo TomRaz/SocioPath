@@ -17,8 +17,10 @@ typedef enum { username, password, randomNum, securityAnswer } field;
 #define SEP_LEN 3
 #define MAX_INT_LEN 8
 
+passEncrypt(char *pass, int randomNum);
+User* newUser(char *name, char* pass, char* ans);
 char* SerializeUser(User *user);
-User* DesrializeUser(char *str);
+User* DeserializeUser(char *str);
 valid_test checkValidity(char *str, field fld);
 
 
