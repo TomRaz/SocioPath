@@ -38,3 +38,12 @@ void serializeUser_list(User_list *head, FILE *output){
 User_list* deserializeUser_list(FILE *input){
 
 }
+
+void CreateAccount(char *username, char *password, char *securityAns)
+{
+
+}
+
+logIn_state logIn(char *username, char* pass){
+
+}
