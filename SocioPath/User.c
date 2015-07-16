@@ -47,7 +47,7 @@ User* newUser(char *name, char* pass, char* ans){
 
 char* SerializeUser(User *user){
 	
-	int stringSize = USERNAME_LEN + PASS_LEN + SECURITY_ANS_LEN + 3 * SEP_LEN+1;
+	int stringSize = USERNAME_LEN + ENC_PASS_LEN + SECURITY_ANS_LEN + 3 * SEP_LEN+1;
 	char *ans = malloc(stringSize * sizeof(char));
 	char rand_num_str[MAX_INT_LEN];
 	
@@ -68,10 +68,10 @@ char* SerializeUser(User *user){
 
 User* DeserializeUser(char *str){
 	
-		if (str == NULL || user == NULL) return NULL; //is necessary?
 	char** res = splitStr(str, USR_WRD_CNT, SECURITY_ANS_LEN, SEPERATOR);
+	if (str == NULL || res == NULL) return NULL; //is necessary?
 
-	User *user = newUser(res[0], res[1], atoi(res[2]), res[3]); //password already encrypted
+	User *user = newUser(res[0], res[1], atoi(res[2]), res[3]); 
 
 	free2Darr(res, 4);
 
