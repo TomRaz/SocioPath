@@ -1,15 +1,9 @@
 #include "User.h"
 #include "../Common/CommonFunctions.h"
 
-typedef struct user_t{
-	char username[USERNAME_LEN + 1];
-	char password[ENC_PASS_LEN + 1]; //password is saved AFTER encryption
-	int randomNum;
-	char securityAnswer[SECURITY_ANS_LEN + 1];
 
-} User;
 
-void passEncrypt(char *pass, int randomNum, char* result){
+void passEncrypt(char* pass, int randomNum, char* result){
 	int ans = pass[0];
 	int i;
 

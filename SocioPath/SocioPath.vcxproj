@@ -12,9 +12,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="User.h" />
+    <ClInclude Include="Validation.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="User.c" />
+    <ClCompile Include="Validation.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{95A59D25-3F57-4643-BBD0-D8ED1ED65512}</ProjectGuid>
