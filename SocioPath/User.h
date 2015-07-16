@@ -4,7 +4,6 @@
 
 #define User_h
 
-
 #define USR_WRD_CNT 3
 #define USERNAME_LEN 50
 #define PASS_LEN 8
