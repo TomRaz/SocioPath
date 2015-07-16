@@ -28,6 +28,10 @@ typedef struct user_t{
 
 void passEncrypt(char *pass, int randomNum);
 User* newUser(char *name, char* pass, char* ans);
+void getUsername(User *user, char* dest);
+void getPassword(User *user, char* dest);
+int getrandomNum(User *user);
+void getSecurityAns(User *user, char* dest);
 char* SerializeUser(User *user);
 User* DeserializeUser(char *str);
 valid_test checkValidity(char *str, field fld);

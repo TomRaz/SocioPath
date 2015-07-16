@@ -18,6 +18,31 @@ void passEncrypt(char* pass, int randomNum, char* result){
 	itoa(ans, result, 2);
 }
 
+void getUsername(User *user, char* dest)
+{
+	if (user == NULL || dest == NULL)
+		return;
+	strcpy(dest, user->username);
+}
+void getPassword(User *user, char* dest){
+	if (user == NULL || dest == NULL)
+		return;
+	strcpy(dest, user->password);
+}
+
+int getrandomNum(User *user){
+	if (user == NULL)
+		return -1; //error
+	return user->randomNum;
+}
+
+void getSecurityAns(User *user, char* dest){
+	if (user == NULL || dest == NULL)
+		return;
+	strcpy(dest, user->securityAnswer);
+}
+
+
 User* newUser(char *name, char* pass, char* ans){
 
 	srand(time(NULL));
