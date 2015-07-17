@@ -47,7 +47,7 @@ Validation* deserializeValid(FILE *input){
 
 void CreateAccount(char *username, char *password, char *securityAns)
 {
-	
+	User usr* = crea
 }
 
 logIn_state logIn(char *username, char* pass){

@@ -43,7 +43,7 @@ void getSecurityAns(User *user, char* dest){
 }
 
 
-User* newUser(char *name, char* pass, char* ans){
+User* createUser(char *name, char* pass, char* ans){
 
 	srand(time(NULL));
 	int randomNum = rand(), passInt;

@@ -27,7 +27,7 @@ char** splitStr(char* str, int wordCount, int maxWordLen, char* sep_str){
 	char** res = alloc2Darr(wordCount, maxWordLen);
 
 	/* get the first token */
-	char *token = strtok(res, sep_str);
+	char *token = strtok(str, sep_str);
 
 	/* walk through other tokens */
 	int i = 0;
