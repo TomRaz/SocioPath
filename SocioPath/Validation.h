@@ -1,5 +1,6 @@
 #ifndef Validation_h
 #define Validation_h
+#include "User.h"
 
 typedef enum {Wrong_Pass, Doesnt_Exist, GOOD} logIn_state;
 

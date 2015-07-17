@@ -96,22 +96,15 @@ User* DeserializeUser(char *str){
 
 	return user;
 }
-
-valid_test checkValidity(char *str, field fld ){ //split to 2 functions
+/*
+valid_test checkUserValidity(char *str){
 	int i, len;
 	bool hasLower = FALSE, hasUpper = FALSE, hasDigit = FALSE, hasSpace = FALSE;
 	
 	if (str == NULL)
 		return Invalid;
 
-	if (fld == username)
-		len = USERNAME_LEN;
-	if (fld == password)
-		len = PASS_LEN;
-	else
-		len = 0; //error
-
-	for (i = 0; i < len; i++){
+	for (i = 0; i < USERNAME_LEN; i++){
 		
 		if (str[i] == '\0')
 			break;
@@ -141,3 +134,27 @@ valid_test checkValidity(char *str, field fld ){ //split to 2 functions
 	return Invalid;
 	}
 
+valid_test checkPassValidity(char *pass){ 
+	int i;
+	bool hasLower = FALSE, hasUpper = FALSE, hasDigit = FALSE;
+
+	if (pass == NULL)
+		return Invalid;
+
+
+	for (i = 0; i < PASS_LEN; i++){
+
+		if (pass[i] == '\0')
+			break;
+		if (isupper(pass[i]))
+			hasUpper = TRUE;
+		if (islower(pass[i]))
+			hasLower = TRUE;
+		if (isdigit(pass[i]))
+			hasDigit = TRUE;
+		}
+
+	
+
+	return Invalid;
+}*/

@@ -28,7 +28,8 @@ int getrandomNum(User *user);
 void getSecurityAns(User *user, char* dest);
 char* SerializeUser(User *user);
 User* DeserializeUser(char *str);
-valid_test checkValidity(char *str, field fld);
+valid_test checkPassValidity(char *pass);
+valid_test checkUserValidity(char *str);
 
 
 #endif

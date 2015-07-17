@@ -3,5 +3,5 @@
 
 //test 1243
 int main(){
-    test();
+   
 }

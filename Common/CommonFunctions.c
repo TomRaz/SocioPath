@@ -8,7 +8,7 @@ char** alloc2Darr(int rows, int cols){
 	for (i = 0; i < rows; i++){
 		res[i] = malloc(cols * sizeof(char));
 		if (res == NULL || res[i] == NULL)
-			reurn NULL;
+			return NULL;
 	}
 }
 
