@@ -45,9 +45,10 @@ Validation* deserializeValid(FILE *input){
 
 }
 
-void CreateAccount(char *username, char *password, char *securityAns)
+void CreateAccount(Validation *valid, char *username, char *password, char *securityAns)
 {
-	User usr* = crea
+	User *usr = createUser(username, password, securityAns);
+	addUser(valid, usr);
 }
 
 logIn_state logIn(char *username, char* pass){

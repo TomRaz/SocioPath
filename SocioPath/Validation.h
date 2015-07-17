@@ -20,7 +20,7 @@ Validation* createValidation(User_list *user_list);
 User* getUser(Validation *valid, char* username);
 void serializeValid(Validation *valid, FILE *output);
 Validation* deserializeValid(FILE *input);
-void CreateAccount(char *username, char *password, char *securityAns);
+void CreateAccount(Validation *valid, char *username, char *password, char *securityAns);
 logIn_state logIn(char *username, char* pass);
 
 #endif
