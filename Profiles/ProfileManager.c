@@ -4,7 +4,7 @@
 
 ProfileListItem* add(ProfileListItem* list, Profile* item){
     ProfileListItem* listItem = malloc(sizeof(ProfileListItem));
-    SOCIO_ASSERT(listItem, "Error allocating memory, exiting");
+    SOCIO_ASSERT_MEM(listItem);
     listItem->profile = item;
     listItem->next = NULL;    
     if (list == NULL)
@@ -30,7 +30,7 @@ ProfileManager* deserializeProfileManager(char* path){
         exit(1);
     }
     ProfileManager* manager = (ProfileManager*)malloc(sizeof(ProfileManager));
-    SOCIO_ASSERT(manager, "Error allocating memory, exiting");
+    SOCIO_ASSERT_MEM(manager);
     manager->head = NULL;
     manager->profilesCount = 0;
     for (int i = 0; i < lines; i+=4){

@@ -10,7 +10,7 @@
 
 Profile* deserializeProfile(char** lines){
     Profile *p = (Profile*)malloc(sizeof(Profile));
-    SOCIO_ASSERT(p,"Error allocating memory, exiting");
+    SOCIO_ASSERT_MEM(p);
     p->pendingRequestsHead = NULL;
     p->friendsHead = NULL;
     p->friendsCount = 0;
@@ -48,7 +48,7 @@ void freeProfile(Profile* p){
 
 void addToFriendRefList(FriendRef** list, char* friendName){
     FriendRef* friendRef = (FriendRef*)malloc(sizeof(FriendRef));
-    SOCIO_ASSERT(friendRef, "Error allocating memory, exiting");
+    SOCIO_ASSERT_MEM(friendRef);
 
     strcpy(friendRef->data, friendName);    
     friendRef->next = NULL;
@@ -74,7 +74,7 @@ char* serializeProfile(Profile* profile){
     size += strlen(profile->username);
 
     char* res = (char*)malloc(size*sizeof(char));
-    SOCIO_ASSERT(res, "Error allocating memory, exiting");
+    SOCIO_ASSERT_MEM(res);
 
     res[0] = '\0';
     strcat(res, "Username_");
@@ -106,7 +106,7 @@ char* serializeProfile(Profile* profile){
 
 Profile* newProfile(char* name){
     Profile *p = (Profile*)malloc(sizeof(Profile));
-    SOCIO_ASSERT(p, "Error allocating memory, exiting");
+    SOCIO_ASSERT_MEM(p);
     strcpy(p->username, name);
     p->status[0] = '\0';
     p->friendsHead = NULL;

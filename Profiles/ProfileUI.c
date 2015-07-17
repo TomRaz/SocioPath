@@ -4,7 +4,7 @@
 
 ProfileUI* newProfileUI(char* username){
     ProfileUI* profileUI = (ProfileUI*)malloc(sizeof(ProfileUI));
-    SOCIO_ASSERT(profileUI, "Failed to allocate memory");
+    SOCIO_ASSERT_MEM(profileUI);
     profileUI->profileManager = deserializeProfileManager(PROFILES_PATH);
     profileUI->curProfile = getProfile(profileUI->profileManager, username);
     if (profileUI->curProfile == NULL){
