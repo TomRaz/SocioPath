@@ -97,7 +97,7 @@ User* DeserializeUser(char *str){
 	return user;
 }
 
-valid_test checkValidity(char *str, field fld ){ //fld = username OR password (before encryption)
+valid_test checkValidity(char *str, field fld ){ //split to 2 functions
 	int i, len;
 	bool hasLower = FALSE, hasUpper = FALSE, hasDigit = FALSE, hasSpace = FALSE;
 	

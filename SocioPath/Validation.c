@@ -3,16 +3,25 @@
 #include "../Common/CommonFunctions.h"
 
 
-User_list* addUser(User_list *head, User *usr){
+void addUser(Validation *valid, User *usr){
 	User_list* ret = createUser_list(usr);
-	ret->next = head;
-	return ret;
+	ret->next = valid->head;
+	valid->head = ret;
+	return;
 }
 
 User_list* createUser_list(User *usr){
 	User_list *ans = malloc(sizeof(User_list));
 	ans->usr = *usr;
 	return ans;
+}
+
+Validation* createValidation(User *usr){
+	
+	User_list* user_l = createUser_list(usr);
+	Validation* valid = malloc(sizeof(Validation));
+	valid->head = user_l;
+	return valid;
 }
 
 User* getUser(User_list* head, char* username){ 
@@ -29,19 +38,17 @@ User* getUser(User_list* head, char* username){
 			return NULL;
 	}
 
-
-
-void serializeUser_list(User_list *head, FILE *output){
+void serializeValid(Validation *valid, FILE *output){
 
 }
 
-User_list* deserializeUser_list(FILE *input){
+Validation* deserializeValid(FILE *input){
 
 }
 
 void CreateAccount(char *username, char *password, char *securityAns)
 {
-
+	
 }
 
 logIn_state logIn(char *username, char* pass){

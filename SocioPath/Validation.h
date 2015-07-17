@@ -3,17 +3,22 @@
 
 typedef enum {Wrong_Pass, Doesnt_Exist, GOOD} logIn_state;
 
-typedef struct User_list_t{
+typedef struct User_list_item{
 	User usr;
-	struct User_list_t *next;
+	struct User_list_item *next;
 
 }User_list;
 
-User_list* addUser(User_list *head, User *usr);
+typedef struct Validation_t{
+	User_list* head;
+}Validation;
+
+void addUser(Validation *valid, User *usr);
 User_list* createUser_list(User *usr);
+Validation* createValidation(User_list *user_list);
 User* getUser(User_list* head, char* username);
-void serializeUser_list(User_list *head, FILE *output);
-User_list* deserializeUser_list(FILE *input);
+void serializeValid(Validation *valid, FILE *output);
+Validation* deserializeValid(FILE *input);
 void CreateAccount(char *username, char *password, char *securityAns);
 logIn_state logIn(char *username, char* pass);
 
