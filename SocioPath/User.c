@@ -96,65 +96,24 @@ User* DeserializeUser(char *str){
 
 	return user;
 }
-/*
-valid_test checkUserValidity(char *str){
-	int i, len;
-	bool hasLower = FALSE, hasUpper = FALSE, hasDigit = FALSE, hasSpace = FALSE;
-	
-	if (str == NULL)
-		return Invalid;
 
-	for (i = 0; i < USERNAME_LEN; i++){
-		
-		if (str[i] == '\0')
-			break;
-		if (isalnum(str[i]) || str[i]== ' '){
-			
-			if (isupper(str[i]))
-				hasUpper = TRUE;
-			if (islower(str[i]))
-				hasLower = TRUE;
-			if (isdigit(str[i]))
-				hasDigit = TRUE;
-			if (str[i] == ' ')
-				hasSpace = TRUE;
-		}
-		else
-			return Invalid;
-	}
-	if (fld == password){
-		if (hasDigit && hasLower && hasUpper && (hasSpace == FALSE) && i == len) //length is 8 and contains lower, upper and a digit
-			return Valid;
-		else
-			return Invalid;
-	}
-	if (fld == username && i > 0)
+
+
+valid_test checkUserValidity(char *str){
+	int len = strlen(str), sum = 0;
+	if (isValid(str) == 0)
+		return Invalid;
+	sum = hasLower(str) + hasUpper(str) + hasSpace(str);
+	if (len == sum)
 		return Valid;
-	
 	return Invalid;
 	}
 
 valid_test checkPassValidity(char *pass){ 
-	int i;
-	bool hasLower = FALSE, hasUpper = FALSE, hasDigit = FALSE;
-
-	if (pass == NULL)
+	int len = strlen(pass);
+	if (isValid(pass) == 0)
 		return Invalid;
-
-
-	for (i = 0; i < PASS_LEN; i++){
-
-		if (pass[i] == '\0')
-			break;
-		if (isupper(pass[i]))
-			hasUpper = TRUE;
-		if (islower(pass[i]))
-			hasLower = TRUE;
-		if (isdigit(pass[i]))
-			hasDigit = TRUE;
-		}
-
-	
-
+	if (len == 8 && hasDigit(pass) && hasLower(pass) && hasUpper(pass) && hasSpace(pass)==0)
+		return Valid;
 	return Invalid;
-}*/
+}
