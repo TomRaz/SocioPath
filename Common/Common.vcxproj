@@ -78,6 +78,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CommonFunctions.h" />
+    <ClInclude Include="consts.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CommonFunctions.c" />

@@ -6,3 +6,4 @@
 #define SEPERATOR "_$_"
 #define SEP_LEN 3
 #define MAX_INT_LEN 8
+#define STATUS_MAX_SIZE 512
