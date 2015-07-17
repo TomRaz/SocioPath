@@ -12,6 +12,7 @@ typedef struct Validation_t{
 void addUser(Validation *valid, User *usr);
 Validation* createValidation(User_list *user_list);
 User* getUser(Validation *valid, char* username);
+int ValidationUserCount(Validation *valid);
 void serializeValid(Validation *valid, char *PATH);
 void deserializeValid(Validation *valid, char *PATH);
 void CreateAccount(Validation *valid, char *username, char *password, char *securityAns);

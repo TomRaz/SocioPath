@@ -9,19 +9,14 @@ void addUser(Validation *valid, User *usr){
 	valid->head = ret;
 	return;
 }
-
-int User_list_count(User_list* user_list){
-	int count = 0;
-	while (user_list->next != NULL)
-	{
-		count++;
-		user_list = user_list->next;
-	}
-	return count;
+int ValidationUserCount(Validation *valid){
+	return User_list_count(valid->head);
 }
 
 void serializeValid(Validation *valid, char *PATH){
-
+	char** items = serializeUser_list(valid->head);
+	int user_num = ValidationUserCount(valid);
+	/*Use common funcs to write to file*/
 }
 
 Validation* createValidation(User *usr){

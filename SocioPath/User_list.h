@@ -9,6 +9,7 @@ typedef struct User_list_item{
 
 User_list* createUser_list(User *usr);
 char** serializeUser_list(User_list *user_list);
+int User_list_count(User_list* user_list);
 
 
 #endif
