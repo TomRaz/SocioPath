@@ -9,12 +9,10 @@ void addUser(Validation *valid, User *usr){
 	valid->head = ret;
 	return;
 }
-
-User_list* createUser_list(User *usr){
-	User_list *ans = malloc(sizeof(User_list));
-	ans->usr = *usr;
-	return ans;
+int ValidationUserCount(Validation *valid){
+	return User_list_count(valid->head);
 }
+
 
 Validation* createValidation(User *usr){
 	
@@ -37,11 +35,18 @@ User* getUser(Validation* valid, char* username){
 			return NULL;
 	}
 
-void serializeValid(Validation *valid, FILE *output){
 
+void serializeValid(Validation *valid, char *PATH){
+	char** items = serializeUser_list(valid->head);
+	int i,user_num = ValidationUserCount(valid);
+	for (i = 0; i < user_num; i++){
+		//writeToFile(items[i], PATH);
+	}
+
+	/*Use common funcs to write to file*/
+	free2Darr(items, user_num);
 }
-
-Validation* deserializeValid(FILE *input){
+void deserializeValid(Validation *valid, char *PATH){
 
 }
 
@@ -51,6 +56,17 @@ void CreateAccount(Validation *valid, char *username, char *password, char *secu
 	addUser(valid, usr);
 }
 
-logIn_state logIn(char *username, char* pass){
-
+logIn_state logIn(Validation *valid, char *username, char* pass){
+	User *usr = getUser(valid, username);
+	if (usr == NULL)
+		return Doesnt_Exist;
+	int randomNum = getrandomNum(usr);
+	char result[ENC_PASS_LEN + 1], usr_pass[ENC_PASS_LEN+1];
+	getPassword(usr, usr_pass);
+	passEncrypt(pass, randomNum, result);
+	if (strcmp(usr_pass, result) == 0){
+		return GOOD;
+	}
+	else
+		return Wrong_Pass;
 }

@@ -4,9 +4,10 @@
 
 
 void passEncrypt(char* pass, int randomNum, char* result){
-	int ans = pass[0];
-	int i;
-
+	int i, ans = pass[0];
+	char tmp_pass[ENC_PASS_LEN + 1];
+	setArrVal(result, ENC_PASS_LEN, '0');
+	result[ENC_PASS_LEN] = '\0';
 	for (i = 1; i < PASS_LEN; i++){
 		ans = ans & pass[i];
 	}
@@ -15,7 +16,8 @@ void passEncrypt(char* pass, int randomNum, char* result){
 	else
 		ans = ans >> 6;
 	ans = ans^randomNum;
-	itoa(ans, result, 2);
+	itoa(ans, tmp_pass, 2);//returns minimun length binary string
+	strncpy(result, tmp_pass, strlen(tmp_pass)); //copy tmp_pass to 32 char string
 }
 
 void getUsername(User *user, char* dest)
@@ -91,7 +93,9 @@ User* DeserializeUser(char *str){
     if (str == NULL || res == NULL){
         return NULL; //is necessary?
     }
-	User *user = newUser(res[0], res[1], atoi(res[2]), res[3]); 
+        
+
+	User *user = createUser(res[0], res[1], atoi(res[2]), res[3]); 
 
 	free2Darr(res, 4);
 

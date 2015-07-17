@@ -64,6 +64,7 @@ int isValid(char* str){//checks if all characters are letters, numbers or space
 	while (*str != '\0'){
 		if (isalnum(*str) == 0 && isspace(*str)==0)
 			return 0;
+		str++;
 	}
 	return 1;
 }
@@ -102,16 +103,11 @@ int hasUpper(char *str){
 
 }
 
-int hasSpace(char *str){
-	int count = 0;
-
-	while (*str != '\0'){
-		if (isspace(*str))
-			count++;
-		str++;
-	}
-	return count;
-
+void setArrVal(char *arr, int size, char val){
+		int i;
+		for (i = 0; i < size; i++){
+			arr[i] = val;
+		}
 }
 
 
@@ -151,4 +147,16 @@ char** readAllLines(char* path, int *lines){
 
     fclose(fh);
     return res;
+}
+
+int hasSpace(char *str){
+	int count = 0;
+
+	while (*str != '\0'){
+		if (isspace(*str))
+			count++;
+		str++;
+	}
+	return count;
+
 }

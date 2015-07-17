@@ -15,6 +15,7 @@ void free2Darr(char** arr, int rows);
 char** splitStr(char* str, int wordCount, int maxWordLen, char* sep_str);
 char** splitStr2(char* a_str, char *a_delim, int *splittedSize);
 
+void setArrVal(char *arr, int size, char val);
 int hasDigit(char *str); //returns the number of digits in a string
 int hasLower(char *str);
 int hasUpper(char *str);

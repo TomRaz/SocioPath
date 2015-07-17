@@ -1,0 +1,12 @@
+Username_chicks
+Status_chicksstatus
+Friends_tom_$_amir_$_chicks
+Pending_<request1_$_<request2>
+Username_amir
+Status_amirstatus
+Friends_tom_$_amir_$_chicks
+Pending_<request1>_$_<request2>
+Username_tom
+Status_asdjsd;ljasd asfuasf asdsad
+Friends_chicks_$_amir_$_tom
+Pending_<request2>_$_<request1>

@@ -12,5 +12,8 @@ typedef struct profile_ui_t{
 ProfileUI* newProfileUI(char* username);
 void startProfileUI(ProfileUI* ui);
 void saveData(ProfileUI* ui);
+void mainDialog(ProfileUI* ui);
+void printOptions();
+char* extractUsernameFromCmd(char* cmd);
 
 #endif

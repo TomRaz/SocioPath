@@ -12,5 +12,7 @@
 #define LIST_SEPERATOR "_$_"
 #define _CRT_SECURE_NO_WARNINGS
 #define MAX_COMMAND_SIZE 200
-#define PROFILES_PATH "c:\\temp\\profiles.txt"
+#define PROFILES_PATH "profiles.txt"
 
+#define STATUS_MAX_SIZE 512
+ 
