@@ -21,7 +21,7 @@ typedef struct user_t{
 
 
 void passEncrypt(char *pass, int randomNum);
-User* newUser(char *name, char* pass, char* ans);
+User* createUser(char *name, char* pass, char* ans);
 void getUsername(User *user, char* dest);
 void getPassword(User *user, char* dest);
 int getrandomNum(User *user);

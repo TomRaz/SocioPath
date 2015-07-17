@@ -3,9 +3,11 @@
   <ItemGroup>
     <ClInclude Include="Profile.h" />
     <ClInclude Include="ProfilesManager.h" />
+    <ClInclude Include="ProfileUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Profile.c" />
     <ClCompile Include="ProfileManager.c" />
+    <ClCompile Include="ProfileUI.c" />
   </ItemGroup>
 </Project>

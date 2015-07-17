@@ -24,17 +24,16 @@ Validation* createValidation(User *usr){
 	return valid;
 }
 
-User* getUser(User_list* head, char* username){ 
+User* getUser(Validation* valid, char* username){ 
 
-	char tmp[USERNAME_LEN + 1];
-
-	while (head != NULL){
-		getUsername(&head->usr, tmp);
-		if (strcmp(tmp, username) == 0)
-			return &head->usr;
-		head = head->next;
+	char curr_username[USERNAME_LEN + 1];
+	User_list* lst = valid->head;
+	while (lst != NULL){
+		getUsername(lst, curr_username);
+		if (strcmp(curr_username, username) == 0)
+			return &lst->usr;
+		lst = lst->next;
 	}
-		if (head == NULL)
 			return NULL;
 	}
 
@@ -46,9 +45,10 @@ Validation* deserializeValid(FILE *input){
 
 }
 
-void CreateAccount(char *username, char *password, char *securityAns)
+void CreateAccount(Validation *valid, char *username, char *password, char *securityAns)
 {
-	
+	User *usr = createUser(username, password, securityAns);
+	addUser(valid, usr);
 }
 
 logIn_state logIn(char *username, char* pass){
