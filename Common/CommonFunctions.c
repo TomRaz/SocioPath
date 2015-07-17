@@ -22,19 +22,19 @@ char** free2Darr(char** arr, int rows){
 
 char** splitStr(char* str, int wordCount, int maxWordLen, char* sep_str){
 
-		char** res = alloc2Darr(wordCount, maxWordLen);
+	char** res = alloc2Darr(wordCount, maxWordLen);
 
-		/* get the first token */
-		char *token = strtok(res, sep_str);
+	/* get the first token */
+	char *token = strtok(res, sep_str);
 
-		/* walk through other tokens */
-		int i = 0;
-		while (token != NULL)
-		{
-			strcpy(res[i], token);
-			token = strtok(NULL, sep_str);
-			i++;
-		}
-
-		return res; 
+	/* walk through other tokens */
+	int i = 0;
+	while (token != NULL)
+	{
+		strcpy(res[i], token);
+		token = strtok(NULL, sep_str);
+		i++;
 	}
+
+	return res; 
+}
