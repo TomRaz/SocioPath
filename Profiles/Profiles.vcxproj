@@ -12,9 +12,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Profile.h" />
+    <ClInclude Include="ProfilesManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Profile.c" />
+    <ClCompile Include="ProfileManager.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6D9F1D62-7F7C-4B0C-B936-4EF3B425BAF1}</ProjectGuid>
