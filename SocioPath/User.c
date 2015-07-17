@@ -59,8 +59,23 @@ User* newUser(char *name, char* pass, char* ans){
 	user->randomNum = randomNum;
 	strcpy(user->securityAnswer, ans);
 
+    User* user2;
+
 	return user;
 
+}
+
+User* DeserializeUser(char *str){    
+    char** res = splitStr(str, USR_WRD_CNT, SECURITY_ANS_LEN, SEPERATOR);
+    if (str == NULL || res == NULL){
+        return NULL; //is necessary?
+    }
+
+    User* user = newUser(res[0], res[1], atoi(res[2]), res[3]);
+
+    free2Darr(res, 4);
+
+    return user;
 }
 
 
@@ -80,22 +95,10 @@ char* SerializeUser(User *user){
 	itoa(user->randomNum, rand_num_str, 10);
 	strcat(ans, rand_num_str);
 	strcat(ans, SEPERATOR);
-	strcat(ans, user->securityAnswer);
-
+	strcat(ans, user->securityAnswer);    
 	return ans;
 }
 
-User* DeserializeUser(char *str){
-	
-	char** res = splitStr(str, USR_WRD_CNT, SECURITY_ANS_LEN, SEPERATOR);
-	if (str == NULL || res == NULL) return NULL; //is necessary?
-
-	User *user = newUser(res[0], res[1], atoi(res[2]), res[3]); 
-
-	free2Darr(res, 4);
-
-	return user;
-}
 /*
 valid_test checkUserValidity(char *str){
 	int i, len;

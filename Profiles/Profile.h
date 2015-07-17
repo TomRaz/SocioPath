@@ -3,9 +3,11 @@
 
 #include "..\Common\consts.h"
 
+
+
 typedef struct profile_t{
     char username[USERNAME_LEN + 1];
-    char status[STATUS_MAX_SIZE + 1]; //password is saved AFTER encryption
+    char status[STATUS_MAX_SIZE + 1]; 
 
 } Profile;
 
