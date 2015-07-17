@@ -12,10 +12,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="User.h" />
+    <ClInclude Include="User_list.h" />
     <ClInclude Include="Validation.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="User.c" />
+    <ClCompile Include="User_list.c" />
     <ClCompile Include="Validation.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

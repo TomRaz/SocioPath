@@ -44,6 +44,7 @@ int isValid(char* str){//checks if all characters are letters, numbers or space
 	while (*str != '\0'){
 		if (isalnum(*str) == 0 && isspace(*str)==0)
 			return 0;
+		str++;
 	}
 	return 1;
 }
@@ -89,4 +90,11 @@ int hasLower(char *str){
 		}
 		return count;
 
+	}
+
+	void setArrVal(char *arr, int size, char val){
+		int i;
+		for (i = 0; i < size; i++){
+			arr[i] = val;
+		}
 	}

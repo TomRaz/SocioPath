@@ -10,10 +10,18 @@ void addUser(Validation *valid, User *usr){
 	return;
 }
 
-User_list* createUser_list(User *usr){
-	User_list *ans = malloc(sizeof(User_list));
-	ans->usr = *usr;
-	return ans;
+int User_list_count(User_list* user_list){
+	int count = 0;
+	while (user_list->next != NULL)
+	{
+		count++;
+		user_list = user_list->next;
+	}
+	return count;
+}
+
+void serializeValid(Validation *valid, char *PATH){
+
 }
 
 Validation* createValidation(User *usr){
