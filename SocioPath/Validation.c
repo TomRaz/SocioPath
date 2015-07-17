@@ -13,11 +13,6 @@ int ValidationUserCount(Validation *valid){
 	return User_list_count(valid->head);
 }
 
-void serializeValid(Validation *valid, char *PATH){
-	char** items = serializeUser_list(valid->head);
-	int user_num = ValidationUserCount(valid);
-	/*Use common funcs to write to file*/
-}
 
 Validation* createValidation(User *usr){
 	
@@ -40,10 +35,17 @@ User* getUser(Validation* valid, char* username){
 			return NULL;
 	}
 
+
 void serializeValid(Validation *valid, char *PATH){
+	char** items = serializeUser_list(valid->head);
+	int i,user_num = ValidationUserCount(valid);
+	for (i = 0; i < user_num; i++){
+		//writeToFile(items[i], PATH);
+	}
 
+	/*Use common funcs to write to file*/
+	free2Darr(items, user_num);
 }
-
 void deserializeValid(Validation *valid, char *PATH){
 
 }

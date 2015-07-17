@@ -16,8 +16,8 @@ void passEncrypt(char* pass, int randomNum, char* result){
 	else
 		ans = ans >> 6;
 	ans = ans^randomNum;
-	itoa(ans, tmp_pass, 2);
-	strncpy(result, tmp_pass, strlen(tmp_pass));
+	itoa(ans, tmp_pass, 2);//returns minimun length binary string
+	strncpy(result, tmp_pass, strlen(tmp_pass)); //copy tmp_pass to 32 char string
 }
 
 void getUsername(User *user, char* dest)
