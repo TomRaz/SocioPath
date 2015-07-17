@@ -1,17 +1,11 @@
 #ifndef User_h
 #include <stdio.h>
 #include <string.h>
+#include "..\Common\consts.h"
 
 #define User_h
 
-#define USR_WRD_CNT 3
-#define USERNAME_LEN 50
-#define PASS_LEN 8
-#define ENC_PASS_LEN 32
-#define SECURITY_ANS_LEN 100
-#define SEPERATOR "_$_"
-#define SEP_LEN 3
-#define MAX_INT_LEN 8
+
 
 
 typedef enum { Valid, Invalid } valid_test;
@@ -27,7 +21,7 @@ typedef struct user_t{
 
 
 void passEncrypt(char *pass, int randomNum);
-User* newUser(char *name, char* pass, char* ans);
+User* newUse    r(char *name, char* pass, char* ans);
 void getUsername(User *user, char* dest);
 void getPassword(User *user, char* dest);
 int getrandomNum(User *user);
