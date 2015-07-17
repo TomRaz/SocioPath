@@ -90,7 +90,7 @@ User* DeserializeUser(char *str){
 	char** res = splitStr(str, USR_WRD_CNT, SECURITY_ANS_LEN, SEPERATOR);
 	if (str == NULL || res == NULL) return NULL; //is necessary?
 
-	User *user = newUser(res[0], res[1], atoi(res[2]), res[3]); 
+	User *user = createUser(res[0], res[1], atoi(res[2]), res[3]); 
 
 	free2Darr(res, 4);
 

@@ -37,11 +37,11 @@ User* getUser(Validation* valid, char* username){
 			return NULL;
 	}
 
-void serializeValid(Validation *valid, FILE *output){
+void serializeValid(Validation *valid, char *PATH){
 
 }
 
-Validation* deserializeValid(FILE *input){
+void deserializeValid(Validation *valid, char *PATH){
 
 }
 
@@ -51,6 +51,17 @@ void CreateAccount(Validation *valid, char *username, char *password, char *secu
 	addUser(valid, usr);
 }
 
-logIn_state logIn(char *username, char* pass){
-
+logIn_state logIn(Validation *valid, char *username, char* pass){
+	User *usr = getUser(valid, username);
+	if (usr == NULL)
+		return Doesnt_Exist;
+	int randomNum = getrandomNum(usr);
+	char result[ENC_PASS_LEN + 1], usr_pass[ENC_PASS_LEN+1];
+	getPassword(usr, usr_pass);
+	passEncrypt(pass, randomNum, result);
+	if (strcmp(usr_pass, result) == 0){
+		return GOOD;
+	}
+	else
+		return Wrong_Pass;
 }
