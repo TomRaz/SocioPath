@@ -1,24 +1,12 @@
-Username_Sad
-Status_asdjsd;ljasd asfuasf asdsad
-Friends_amir_$_chicks_$_tom
-Pending_<request1_$_<request2
-Username_Sam
-Status_asdjsd;ljasd asfuasf asdsad
-Friends_amir_$_chicks_$_tom
-Pending_<request1>_$_<request2>
-Username_bla
-Status_asdjsd;ljasd asfuasf asdsad
-Friends_amir_$_chicks_$_tom
-Pending_<request1>_$_<request2>
+Username_amir
+Status_Amir status
+Friends_sam_$_tom
+Pending_
 Username_tom
-Status_asdjsd;ljasd asfuasf asdsad
-Friends_amir_$_tom
-Pending_<request1>_$_<request2>_$_chicks
-Username_Amir
-Status_amirstatus
-Friends_amir_$_tom
-Pending_<request1>_$_<request2>
-Username_chicks
-Status_chicksstatus
-Friends_bla_$_chicks_$_Sad_$_Sam
-Pending_<request1_$_<request2
+Status_Tom status
+Friends_amir
+Pending_
+Username_sam
+Status_Amir status
+Friends_amir
+Pending_

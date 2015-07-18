@@ -10,6 +10,7 @@
 #define MAX_LINE_SIZE 1024
 #define PROFILE_SEPERATOR "_"
 #define LIST_SEPERATOR "_$_"
+
 #define _CRT_SECURE_NO_WARNINGS
 #define MAX_COMMAND_SIZE 200
 #define PROFILES_PATH "profiles.txt"

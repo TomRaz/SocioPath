@@ -23,6 +23,6 @@ void checkFriendStatus(ProfileUI* ui, char* name);
 void unfriend(ProfileUI* ui, char* name);
 void updateStatusDialog(ProfileUI* ui);
 void sendFriendRequest(ProfileUI* ui, char* name);
-void checkRequestsDialog(ProfileUI* ui);
+void printNetwork(ProfileUI* ui);
 
 #endif

@@ -5,6 +5,7 @@
 ProfileUI* newProfileUI(char* username){
     ProfileUI* profileUI = (ProfileUI*)malloc(sizeof(ProfileUI));
     SOCIO_ASSERT_MEM(profileUI);
+    //TODO: handle situation in which there is no file, and we create the first one
     profileUI->profileManager = deserializeProfileManager(PROFILES_PATH);
     profileUI->curProfile = getProfile(profileUI->profileManager, username);
     if (profileUI->curProfile == NULL){
@@ -29,10 +30,9 @@ bool startProfileUI(ProfileUI* ui){
 }
 
 bool mainDialog(ProfileUI* ui){
-    printOptions();
-    char cmd[MAX_COMMAND_SIZE];
-    
     while (true){
+        printOptions();
+        char cmd[MAX_COMMAND_SIZE];
         fgets(cmd, MAX_COMMAND_SIZE, stdin);
         //remove trailing newline
         strtok(cmd, "\n");
@@ -45,7 +45,7 @@ bool mainDialog(ProfileUI* ui){
             return true;
         }
         else if (strcmp(cmd, "printNetwork") == 0){
-            //printNetwork(ui);
+            printNetwork(ui);
         }
         else if (strcmp(cmd, "profile") == 0){
             showProfile(ui, "Your friends' statuses:\n");
@@ -54,25 +54,33 @@ bool mainDialog(ProfileUI* ui){
             updateStatusDialog(ui);
         }
         else if (strcmp(cmd, "checkRequests") == 0){
-            checkRequestsDialog(ui);
+            checkRequestsDialog(ui->profileManager, ui->curProfile);
         }
         else if (strcmp(cmd, "printFriends") == 0){
             printFriends(ui);
         }
         else if (strstr(cmd, "search") != NULL){
-            char* userName = extractUsernameFromCmd(cmd);
+            char* userName = extractUsernameFromCmd(cmd);            
+            if (!userName)
+                continue;
             searchProfile(ui, userName);
         }
         else if (strstr(cmd, "checkStatus") != NULL){
             char* userName = extractUsernameFromCmd(cmd);
+            if (!userName)
+                continue;
             checkFriendStatus(ui, userName);
         }
         else if (strstr(cmd, "request") != NULL){
             char* userName = extractUsernameFromCmd(cmd);
+            if (!userName)
+                continue;
             sendFriendRequest(ui, userName);
         }
         else if (strstr(cmd, "unfriend") != NULL){
             char* userName = extractUsernameFromCmd(cmd);
+            if (!userName)
+                continue;
             unfriend(ui, userName);
         }
         else{
@@ -99,7 +107,10 @@ void printOptions(){
 
 char* extractUsernameFromCmd(char* cmd){
     char* spacePtr = strchr(cmd, ' ');
-    SOCIO_ASSERT(spacePtr, "Error parsing the command, exiting");
+    if (spacePtr == NULL){
+        printf("Error parsing the command, please try again\n");
+        return NULL;     
+    }        
     return spacePtr + 1;
 }
 
@@ -111,7 +122,7 @@ void printFriends(ProfileUI* ui){
     FriendRef* ref = ui->curProfile->friendsHead;
     printf("Your friends are:\n");
     for (int i = 0; i < ui->curProfile->friendsCount; i++, ref = ref->next){
-        printf("%d. %s\n", i, ref->data);
+        printf("%d. %s\n", i+1, ref->data);
     }
 }
 
@@ -199,6 +210,20 @@ void sendFriendRequest(ProfileUI* ui, char* name){
     printf("Friend request sent to %s\n", name);
 }
 
-void checkRequestsDialog(ProfileUI* ui){
+
+void printNetwork(ProfileUI* ui){
+    //TODO:figure out how many levels do we need here? is it until we don't find any more people? 
+    //complete the function
+    printf("Dear %s, your soical network is:\n", ui->curProfile->username);
+    printf("You: %s\n", ui->curProfile->username);
+    int numOfFriends;
+    Profile** friends = getUsersFriends(ui->profileManager, ui->curProfile, &numOfFriends);
+    printf("Your Friends:");
+    for (int i = 0; i < numOfFriends; i++){
+        printf("%s", friends[i]);
+        if (i != numOfFriends - 1)
+            printf(",");
+    }
+    printf("\n");
 
 }

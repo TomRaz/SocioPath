@@ -5,8 +5,8 @@
 
 #define USER_NAME_PREFIX_LEN 9
 #define STATUS_PREFIX_LEN 7
-#define FRIEND_PREFIX_LENGTH 8
-#define PENDING_REQ_PREFIX_LENGTH 8
+#define FRIEND_PREFIX_LENGTH 7
+#define PENDING_REQ_PREFIX_LENGTH 7
 
 Profile* deserializeProfile(char** lines){
     Profile *p = (Profile*)malloc(sizeof(Profile));
@@ -20,6 +20,7 @@ Profile* deserializeProfile(char** lines){
     strcpy(p->status, lines[1] + STATUS_PREFIX_LEN);
 
     int splittedStrings;
+    //TODO: make sure that splitting works here because of strtok single char issue
     char** res = splitStr2(lines[2] + FRIEND_PREFIX_LENGTH, LIST_SEPERATOR, &splittedStrings);
     for (int i = 0; i < splittedStrings;i++){
         addFriend(p, res[i]);
@@ -106,10 +107,11 @@ void addPendingRequest(Profile* profile, char* friendName){
 
 char* serializeProfile(Profile* profile){
     
-    int size = USERNAME_LEN*(profile->friendsCount);
-    size+= USERNAME_LEN*(profile->pendingRequestsCount);
+    int size = (USERNAME_LEN + SEP_LEN)*(profile->friendsCount);
+    size += (USERNAME_LEN + SEP_LEN)*(profile->pendingRequestsCount);
     size += strlen(profile->status);
     size += strlen(profile->username);
+    size += USER_NAME_PREFIX_LEN + USER_NAME_PREFIX_LEN + FRIEND_PREFIX_LENGTH + PENDING_REQ_PREFIX_LENGTH + 8;
 
     char* res = (char*)malloc(size*sizeof(char));
     SOCIO_ASSERT_MEM(res);
@@ -152,26 +154,31 @@ Profile* newProfile(char* name){
     return p;
 }
 
-
-bool removeFriend(Profile* p, char* name){
-    FriendRef* cur = p->friendsHead;
+bool removeFromFriendRefList(FriendRef** friendList, char* name){
+    FriendRef* cur = *friendList;
     FriendRef* prev = NULL;
     while (cur != NULL){
         if (strcmp(name, cur->data) == 0){
             if (prev == NULL){
-                p->friendsHead = cur->next;                
+                *friendList = cur->next;
             }
             else{
-                prev->next = cur->next;                
+                prev->next = cur->next;
             }
             free(cur);
-            p->friendsCount--;
-            return true;        
+            return true;
         }
         prev = cur;
         cur = cur->next;
     }
     return false;
+}
+bool removeFriend(Profile* p, char* name){
+    if (removeFromFriendRefList(&p->friendsHead, name)){
+        p->friendsCount--;
+        return true;
+    }
+    return false;  
 }
 
 bool findInFriendsList(FriendRef* head, char* name){
@@ -192,4 +199,24 @@ bool isFriendRequestPending(Profile* profile, char* name){
     return findInFriendsList(profile->pendingRequestsHead, name);    
 }
 
+bool removePendingFriendRequest(Profile* profile, char* name){
+    if (removeFromFriendRefList(&(profile->pendingRequestsHead), name)){
+        profile->pendingRequestsCount--;
+        return true;
+    }
+    return false;
+}
+bool acceptFriendRequest(Profile* mine, Profile* other){
+    if (!removePendingFriendRequest(mine, other->username))
+        return false;
+    addFriend(mine, other->username);
+    addFriend(other, mine->username);
+    return true;    
+}
 
+bool rejectFriendRequest(Profile* mine, Profile* other){
+    if (!removePendingFriendRequest(mine, other->username)){
+        return false;
+    }        
+    return true;
+}

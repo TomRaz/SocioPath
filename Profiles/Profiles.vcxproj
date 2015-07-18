@@ -11,11 +11,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CheckRequestsDialog.h" />
     <ClInclude Include="Profile.h" />
     <ClInclude Include="ProfilesManager.h" />
     <ClInclude Include="ProfileUI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CheckRequestsDialog.cpp" />
     <ClCompile Include="Profile.c" />
     <ClCompile Include="ProfileManager.c" />
     <ClCompile Include="ProfileUI.c" />

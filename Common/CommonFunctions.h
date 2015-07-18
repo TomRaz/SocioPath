@@ -24,7 +24,7 @@ int hasSpace(char *str);
 char** readAllLines(char* path, int *lines);
 
 
-#define SOCIO_ASSERT(exp, msg) if(!exp){ printf("%s\n", msg); exit(1);}
+#define SOCIO_ASSERT(exp, msg) if(!exp){ printf("%s\n", msg); assert(0);}
 
 #define SOCIO_ASSERT_MEM(exp) SOCIO_ASSERT(exp, "Memory allocation failed")
 

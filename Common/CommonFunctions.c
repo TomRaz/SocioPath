@@ -130,7 +130,6 @@ char** readAllLines(char* path, int *lines){
     char line[MAX_LINE_SIZE];
     *lines = 0;
     while (fgets(line, MAX_LINE_SIZE, fh) != NULL){
-        int b = (*lines + 1)*sizeof(char)*MAX_LINE_SIZE;
         res = (char**)realloc(res, (*lines + 1)*sizeof(char**));
         if (!res){
             for (int j = 0; j < *lines; j++)
