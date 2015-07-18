@@ -47,7 +47,13 @@ void serializeValid(Validation *valid, char *PATH){
 	free2Darr(items, user_num);
 }
 void deserializeValid(Validation *valid, char *PATH){
-
+	int i, lines;
+	char **res = readAllLines(PATH, &lines);
+	User *curr_usr;
+	for (i = 0; i < lines; i++){
+		curr_usr = DeserializeUser(res[i]);
+		addUser(valid, curr_usr);
+	}
 }
 
 void CreateAccount(Validation *valid, char *username, char *password, char *securityAns)
