@@ -24,6 +24,9 @@ void freeProfile(Profile* p);
 void addFriend(Profile* profile, char* friendName);
 void addPendingRequest(Profile* profile, char* friendName);
 Profile* newProfile(char* name);
+bool removeFriend(Profile* profile, char* name);
+bool isFriend(Profile* profile, char* name);
+bool isFriendRequestPending(Profile* profile, char* name);
 
 
 typedef struct profile_list_t{

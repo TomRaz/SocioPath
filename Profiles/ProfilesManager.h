@@ -19,5 +19,8 @@ char* getFriendsStatuses(ProfileManager* manager, Profile* profile);
 Profile** getUsersFriends(ProfileManager* manager, Profile* profile, int* numOfFriends);
 
 char* getFriendsStatus(ProfileManager* manager, char* friendName);
+Profile** searchByName(ProfileManager* manager, char* name, int *numOfProfiles);
+
+
 
 #endif

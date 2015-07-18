@@ -46,23 +46,61 @@ void freeProfile(Profile* p){
     free(p);
 }
 
-void addToFriendRefList(FriendRef** list, char* friendName){
+void addToFriendRefListSortedByName(FriendRef** list, char* friendName){
     FriendRef* friendRef = (FriendRef*)malloc(sizeof(FriendRef));
     SOCIO_ASSERT_MEM(friendRef);
 
     strcpy(friendRef->data, friendName);    
     friendRef->next = NULL;
 
-    if (*list != NULL)
-        friendRef->next = *list;
-    *list = friendRef;    
+    
+    if (*list != NULL){
+        //insertion sort
+        FriendRef* cur = *list;
+        FriendRef* prev = NULL;
+        while (cur != NULL){
+            if (_stricmp(cur->data, friendName)>0){
+                break;
+            }
+            prev = cur;
+            cur = cur->next;
+            
+        }
+        if (prev == NULL){
+            friendRef->next = cur;
+            *list = friendRef;
+        }
+        else{
+            friendRef->next = cur;
+            prev->next = friendRef;
+        }        
+    }
+    else{
+        *list = friendRef;
+    }
+    
 }
 void addFriend(Profile* profile, char* friendName){
-    addToFriendRefList(&profile->friendsHead, friendName);
+    addToFriendRefListSortedByName(&profile->friendsHead, friendName);
     profile->friendsCount += 1;
 }
 void addPendingRequest(Profile* profile, char* friendName){
-    addToFriendRefList(&profile->pendingRequestsHead, friendName);
+    //TODO: make this keep the order(add to end of the list)    
+    FriendRef* friendRef = (FriendRef*)malloc(sizeof(FriendRef));
+    SOCIO_ASSERT_MEM(friendRef);
+    strcpy(friendRef->data, friendName);
+    friendRef->next = NULL;    
+    if (profile->pendingRequestsHead == NULL){
+        profile->pendingRequestsHead = friendRef;
+    }
+    else{
+        FriendRef* cur = profile->pendingRequestsHead;
+        while (cur->next != NULL){
+            cur = cur->next;
+        }
+        cur->next = friendRef;
+    }    
+    
     profile->pendingRequestsCount += 1;
 }
 
@@ -113,3 +151,45 @@ Profile* newProfile(char* name){
     p->pendingRequestsHead = NULL;
     return p;
 }
+
+
+bool removeFriend(Profile* p, char* name){
+    FriendRef* cur = p->friendsHead;
+    FriendRef* prev = NULL;
+    while (cur != NULL){
+        if (strcmp(name, cur->data) == 0){
+            if (prev == NULL){
+                p->friendsHead = cur->next;                
+            }
+            else{
+                prev->next = cur->next;                
+            }
+            free(cur);
+            p->friendsCount--;
+            return true;        
+        }
+        prev = cur;
+        cur = cur->next;
+    }
+    return false;
+}
+
+bool findInFriendsList(FriendRef* head, char* name){
+    while (head != NULL){
+        if (strcmp(name, head->data) == 0){
+            return true;
+        }
+        head = head->next;
+    }
+    return false;
+}
+
+bool isFriend(Profile* profile, char* name){
+    return findInFriendsList(profile->friendsHead, name);
+}
+
+bool isFriendRequestPending(Profile* profile, char* name){
+    return findInFriendsList(profile->pendingRequestsHead, name);    
+}
+
+

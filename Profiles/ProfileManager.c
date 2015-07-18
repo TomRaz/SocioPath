@@ -118,3 +118,19 @@ Profile** getUsersFriends(ProfileManager* manager, Profile* profile, int* numOfF
     *numOfFriends = len;
     return res;
 }
+
+Profile** searchByName(ProfileManager* manager, char* name, int *numOfProfiles){
+    Profile** res = NULL;
+    ProfileListItem* cur = manager->head;
+    int len = 0;
+    while (cur != NULL){
+        if (stristr(cur->profile->username, name) != NULL){
+            res = (Profile**)realloc(res, (len + 1)*sizeof(Profile*));
+            SOCIO_ASSERT_MEM(res);
+            res[len++] = getProfile(manager, cur->profile->username);
+        }        
+        cur = cur->next;        
+    }
+    *numOfProfiles = len;
+    return res;
+}

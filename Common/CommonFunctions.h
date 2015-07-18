@@ -28,6 +28,8 @@ char** readAllLines(char* path, int *lines);
 
 #define SOCIO_ASSERT_MEM(exp) SOCIO_ASSERT(exp, "Memory allocation failed")
 
+char *stristr(char *ch1, char *ch2);
+
 #endif
 
 

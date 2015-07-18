@@ -14,5 +14,9 @@
 #define MAX_COMMAND_SIZE 200
 #define PROFILES_PATH "profiles.txt"
 
-#define STATUS_MAX_SIZE 512
+//one character for \0
+#define STATUS_MAX_SIZE 512+1
  
+typedef int bool;
+#define true 1
+#define false 0
