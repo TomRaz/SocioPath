@@ -130,7 +130,6 @@ char** readAllLines(char* path, int *lines){
     char line[MAX_LINE_SIZE];
     *lines = 0;
     while (fgets(line, MAX_LINE_SIZE, fh) != NULL){
-        int b = (*lines + 1)*sizeof(char)*MAX_LINE_SIZE;
         res = (char**)realloc(res, (*lines + 1)*sizeof(char**));
         if (!res){
             for (int j = 0; j < *lines; j++)
@@ -159,4 +158,36 @@ int hasSpace(char *str){
 	}
 	return count;
 
+}
+
+//http://www.dateiliste.com/en/source-code/16-cc/577-stristr-case-insensitive-strstr-function.html
+char *stristr(char *ch1, char *ch2)
+{
+    char  *chN1, *chN2;
+    char  *chNdx;
+    char  *chRet = NULL;
+
+    chN1 = strdup(ch1);
+    chN2 = strdup(ch2);
+    if (chN1 && chN2)
+    {
+        chNdx = chN1;
+        while (*chNdx)
+        {
+            *chNdx = (char)tolower(*chNdx);
+            chNdx++;
+        }
+        chNdx = chN2;
+        while (*chNdx)
+        {
+            *chNdx = (char)tolower(*chNdx);
+            chNdx++;
+        }
+        chNdx = strstr(chN1, chN2);
+        if (chNdx)
+            chRet = ch1 + (chNdx - chN1);
+    }
+    free(chN1);
+    free(chN2);
+    return chRet;
 }

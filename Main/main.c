@@ -12,7 +12,7 @@ void testProfileManager(){
 }
 
 void startUI(){
-    ProfileUI* ui = newProfileUI("tom");
+    ProfileUI* ui = newProfileUI("amir");
     startProfileUI(ui);
     saveData(ui);
 }

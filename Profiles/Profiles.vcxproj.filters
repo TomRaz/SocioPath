@@ -4,10 +4,12 @@
     <ClInclude Include="Profile.h" />
     <ClInclude Include="ProfilesManager.h" />
     <ClInclude Include="ProfileUI.h" />
+    <ClInclude Include="CheckRequestsDialog.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Profile.c" />
     <ClCompile Include="ProfileManager.c" />
     <ClCompile Include="ProfileUI.c" />
+    <ClCompile Include="CheckRequestsDialog.cpp" />
   </ItemGroup>
 </Project>

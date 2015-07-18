@@ -10,9 +10,14 @@
 #define MAX_LINE_SIZE 1024
 #define PROFILE_SEPERATOR "_"
 #define LIST_SEPERATOR "_$_"
+
 #define _CRT_SECURE_NO_WARNINGS
 #define MAX_COMMAND_SIZE 200
 #define PROFILES_PATH "profiles.txt"
 
-#define STATUS_MAX_SIZE 512
+//one character for \0
+#define STATUS_MAX_SIZE 512+1
  
+typedef int bool;
+#define true 1
+#define false 0
