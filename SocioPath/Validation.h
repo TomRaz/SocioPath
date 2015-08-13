@@ -3,14 +3,14 @@
 #include "User.h"
 #include "User_list.h"
 
-typedef enum {Wrong_Pass, Doesnt_Exist, GOOD} logIn_state;
+typedef enum {BAD_FRMT ,Wrong_Pass, Doesnt_Exist, LOGIN_GOOD, EXIT} logIn_state;
 
 typedef struct Validation_t{
 	User_list* head;
 }Validation;
 
 void addUser(Validation *valid, User *usr);
-Validation* createValidation(User_list *user_list);
+Validation* createValidation();
 User* getUser(Validation *valid, char* username);
 int ValidationUserCount(Validation *valid);
 void serializeValid(Validation *valid, char *PATH);

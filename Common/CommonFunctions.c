@@ -61,10 +61,11 @@ char** splitStr2(char* a_str, char *a_delim, int *splittedSize)
 
 }
 int isValid(char* str){//checks if all characters are letters, numbers or space
-	while (*str != '\0'){
-		if (isalnum(*str) == 0 && isspace(*str)==0)
+	char* tmp = str;
+	while (*tmp != '\0'){
+		if (isalnum(*tmp) == 0 && isspace(*tmp)==0)
 			return 0;
-		str++;
+		tmp++;
 	}
 	return 1;
 }

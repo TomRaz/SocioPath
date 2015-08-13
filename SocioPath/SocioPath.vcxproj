@@ -14,11 +14,13 @@
     <ClInclude Include="User.h" />
     <ClInclude Include="User_list.h" />
     <ClInclude Include="Validation.h" />
+    <ClInclude Include="ValidationUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="User.c" />
     <ClCompile Include="User_list.c" />
     <ClCompile Include="Validation.c" />
+    <ClCompile Include="ValidationUI.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{95A59D25-3F57-4643-BBD0-D8ED1ED65512}</ProjectGuid>

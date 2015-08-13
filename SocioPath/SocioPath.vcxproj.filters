@@ -4,10 +4,12 @@
     <ClInclude Include="User.h" />
     <ClInclude Include="Validation.h" />
     <ClInclude Include="User_list.h" />
+    <ClInclude Include="ValidationUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="User.c" />
     <ClCompile Include="Validation.c" />
     <ClCompile Include="User_list.c" />
+    <ClCompile Include="ValidationUI.c" />
   </ItemGroup>
 </Project>

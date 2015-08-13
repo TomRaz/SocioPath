@@ -2,6 +2,9 @@
 #include "../Profiles/Profile.h"
 #include "../Profiles/ProfilesManager.h"
 #include "../Profiles/ProfileUI.h"
+#include "../SocioPath/ValidationUI.h"
+#include "../SocioPath/Validation.h"
+#include "../Common/consts.h"
 
 void testProfileManager(){
     ProfileManager *p = deserializeProfileManager("c:\\temp\\profiles.txt");
@@ -17,8 +20,17 @@ void startUI(){
     saveData(ui);
 }
 
-//test 1243
 int main(){
-    startUI();
+	
+	bool a;
+
+	char sec[SECURITY_ANS_LEN];
+	Validation *valid = createValidation();
+
+	do
+	{
+		a = MainLoginDialog(valid);
+	} while (a == TRUE);
+	//startUI();
     //testProfileManager();
 }

@@ -22,6 +22,7 @@ int hasUpper(char *str);
 int hasSpace(char *str);
 
 char** readAllLines(char* path, int *lines);
+int isValid(char* str);//checks if all characters are letters, numbers or space
 
 
 #define SOCIO_ASSERT(exp, msg) if(!exp){ printf("%s\n", msg); assert(0);}

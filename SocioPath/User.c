@@ -93,10 +93,8 @@ User* DeserializeUser(char *str){
     if (str == NULL || res == NULL){
         return NULL; //is necessary?
     }
-        
 
 	User *user = createUser(res[0], res[1], atoi(res[2]), res[3]); 
-
 	free2Darr(res, 4);
 
 	return user;
@@ -104,21 +102,21 @@ User* DeserializeUser(char *str){
 
 
 
-valid_test checkUserValidity(char *str){
+bool checkUserValidity(char *str){
 	int len = strlen(str), sum = 0;
 	if (isValid(str) == 0)
-		return Invalid;
+		return FALSE;
 	sum = hasLower(str) + hasUpper(str) + hasSpace(str);
 	if (len == sum)
-		return Valid;
-	return Invalid;
+		return TRUE;
+	return FALSE;
 	}
 
-valid_test checkPassValidity(char *pass){ 
+bool checkPassValidity(char *pass){ 
 	int len = strlen(pass);
 	if (isValid(pass) == 0)
-		return Invalid;
+		return FALSE;
 	if (len == 8 && hasDigit(pass) && hasLower(pass) && hasUpper(pass) && hasSpace(pass)==0)
-		return Valid;
-	return Invalid;
+		return TRUE;
+	return FALSE;
 }

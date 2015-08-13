@@ -14,9 +14,10 @@ int ValidationUserCount(Validation *valid){
 }
 
 
-Validation* createValidation(User *usr){
+Validation* createValidation(){ //Removed (User *usr)
 	
-	User_list* user_l = createUser_list(usr);
+	
+	User_list* user_l = createUser_list();
 	Validation* valid = malloc(sizeof(Validation));
 	valid->head = user_l;
 	return valid;
@@ -71,7 +72,7 @@ logIn_state logIn(Validation *valid, char *username, char* pass){
 	getPassword(usr, usr_pass);
 	passEncrypt(pass, randomNum, result);
 	if (strcmp(usr_pass, result) == 0){
-		return GOOD;
+		return LOGIN_GOOD;
 	}
 	else
 		return Wrong_Pass;

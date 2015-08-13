@@ -1,15 +1,21 @@
-#include "User.h"
-#include "Validation.h"
-#include "User_list.h"
-#include "../Common/CommonFunctions.h"
-#include "../Common/consts.h"
+	#include "User.h"
+	#include "Validation.h"
+	#include "User_list.h"
+	#include "../Common/CommonFunctions.h"
+	#include "../Common/consts.h"
 
 
-User_list* createUser_list(User *usr){
+User_list* createUser_list(){//removed ()
 	User_list *ans = malloc(sizeof(User_list));
-	ans->usr = *usr;
+	ans->usr = NULL;
+	ans->next = NULL;
+	
 	return ans;
 }
+User_list* AddUserToList(User_list* head, char* username, char* password, char* securityAnswer){
+
+}
+
 
 int User_list_count(User_list* user_list){
 	int count = 0;

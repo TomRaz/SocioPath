@@ -8,7 +8,7 @@
 
 
 
-typedef enum { Valid, Invalid } valid_test;
+//typedef enum { Valid, Invalid } valid_test;
 typedef enum { username, password, randomNum, securityAnswer } field;
 
 typedef struct user_t{
@@ -28,8 +28,8 @@ int getrandomNum(User *user);
 void getSecurityAns(User *user, char* dest);
 char* SerializeUser(User *user);
 User* DeserializeUser(char *str);
-valid_test checkPassValidity(char *pass);
-valid_test checkUserValidity(char *str);
+bool checkPassValidity(char *pass);
+bool checkUserValidity(char *str);
 
 
 #endif
