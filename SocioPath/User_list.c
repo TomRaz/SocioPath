@@ -13,7 +13,16 @@ User_list* createUser_list(){//removed ()
 	return ans;
 }
 User_list* AddUserToList(User_list* head, char* username, char* password, char* securityAnswer){
-
+	if (head->usr == NULL){
+		head->usr = createUser(username, password, securityAnswer);
+	}
+	else{
+	User_list* new_item = createUser_list();
+	new_item->usr = createUser(username, password, securityAnswer);
+	new_item->next = head->next;
+	head->next = new_item;
+}
+	return head;
 }
 
 

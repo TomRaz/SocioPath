@@ -28,9 +28,9 @@ User* getUser(Validation* valid, char* username){
 	char curr_username[USERNAME_LEN + 1];
 	User_list* lst = valid->head;
 	while (lst != NULL){
-		getUsername(lst, curr_username);
+		getUsername(lst->usr, curr_username);
 		if (strcmp(curr_username, username) == 0)
-			return &lst->usr;
+			return lst->usr;
 		lst = lst->next;
 	}
 			return NULL;
@@ -59,8 +59,7 @@ void deserializeValid(Validation *valid, char *PATH){
 
 void CreateAccount(Validation *valid, char *username, char *password, char *securityAns)
 {
-	User *usr = createUser(username, password, securityAns);
-	addUser(valid, usr);
+	AddUserToList(valid->head, username, password, securityAns);
 }
 
 logIn_state logIn(Validation *valid, char *username, char* pass){
