@@ -187,7 +187,7 @@ bool newUserUI(Validation *valid)
 	} while (secAns != TRUE);
 
 	CreateAccount(valid, username, password, securityAnswer);
-
+	return TRUE;
 	//ProfileUI *ui = newProfileUI(username); //TODO: Merge with Profile section
 	//startProfileUI(ui);
 }

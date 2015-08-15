@@ -49,7 +49,7 @@ void getSecurityAns(User *user, char* dest){
 		return;
 	strcpy(dest, user->securityAnswer);
 }
-User* createUser(char *name, char* pass, int randomNum, char* ans){
+User* createDeserializedUser(char *name, char* pass, int randomNum, char* ans){
 
 	User* user = malloc(sizeof(User));
 	if (user == NULL)
@@ -113,7 +113,7 @@ User* DeserializeUser(char *str){
         return NULL; //is necessary?
     }
 
-	User *user = createUser(res[0], res[1], atoi(res[2]), res[3]); 
+	User *user = createDeserializedUser(res[0], res[1], atoi(res[2]), res[3]); 
 	free2Darr(res, 4);
 
 	return user;
