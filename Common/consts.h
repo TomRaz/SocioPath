@@ -11,7 +11,7 @@
 #define PROFILE_SEPERATOR "_"
 #define LIST_SEPERATOR "_$_"
 
-#define UI_SEPERATOR "\n\n====================================================================================\n\n\n"
+#define UI_SEPERATOR "\n====================================================================================\n\n"
 
 #define _CRT_SECURE_NO_WARNINGS
 #define MAX_LOGIN_CMD_SIZE 61
