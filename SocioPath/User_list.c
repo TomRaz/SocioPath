@@ -42,7 +42,7 @@ char** serializeUser_list(User_list *user_list){
 	User_list* curr = user_list;
 	char **result = alloc2Darr(item_num, max_usr_str_len);
 	for (i = 0; i < item_num; i++){
-		strcpy(result[i], SerializeUser(&curr->usr));
+		strcpy(result[i], SerializeUser(curr->usr));
 		curr = curr->next;
 	}
 	return result;

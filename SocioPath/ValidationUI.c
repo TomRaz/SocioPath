@@ -114,7 +114,6 @@ bool getLoginString(char *username, char *password){
 Pass_menu getPass(char* password)
 		{
 			char tmp[PASS_LEN+1] = { 0 };
-			char c;
 			int len = 0;
 
 			do {
@@ -135,10 +134,10 @@ Pass_menu getPass(char* password)
 		}
 }
 
-bool getNewPass(char* password){
+bool getNewPass(char* password, char* username){
 	char pass1[PASS_LEN+1], pass2[PASS_LEN+1];
 	bool pass1_test, pass2_test;
-	printf("Please enter your new password:\n");
+	printf("Hello %s, Please enter your new password:\n", username);
 
 	pass1_test = getPass(pass1);
 	printf("Please enter password again for confirmation:\n");
@@ -179,7 +178,7 @@ bool newUserUI(Validation *valid)
 	usr_tst = getNewUsername(valid, username);
 
 	do {
-		good_pass = getNewPass(password);
+		good_pass = getNewPass(password, username);
 
 	} while (good_pass != TRUE);
 
@@ -300,7 +299,7 @@ logIn_state handleWrongPass(Validation *valid, char* username){
 }
 
 Username_test getNewUsername(Validation *valid, char* username){
-	char tmp_username[USERNAME_LEN], c;
+	char tmp_username[USERNAME_LEN];
 	int i = 1;
 	User *test;
 	Username_test ret;
@@ -351,8 +350,8 @@ Pass_menu recoverPass(Validation *valid, char* username){
 		return EXIT_APP;
 	if (strcmp(good_answer, tmp_answer) == 0)
 	{
-		printf("Your answer is correct. Please select a new password.\n");
-		getNewPass(new_pass);
+		printf("%s, your answer is correct. Please select a new password.\n", username);
+		getNewPass(new_pass, username);
 		updatePass(valid, username, new_pass);
 		printf("Password updated.\n");
 		return GOOD;

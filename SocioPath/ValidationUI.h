@@ -17,7 +17,7 @@ bool getNewSecurityAns(char *ans);
 bool getNewPass(char* password);
 Pass_menu getPass(char* password);
 Pass_menu recoverPass(Validation *valid,char* user);
-Username_test getNewUsername(Validation *valid, char* username);
+bool getNewPass(char* password, char* username);
 bool getLoginString(char *username, char *password);
 logIn_state handleWrongPass(Validation *valid, char* username);
 

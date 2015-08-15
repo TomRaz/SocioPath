@@ -49,12 +49,25 @@ void getSecurityAns(User *user, char* dest){
 		return;
 	strcpy(dest, user->securityAnswer);
 }
+User* createUser(char *name, char* pass, int randomNum, char* ans){
 
+	User* user = malloc(sizeof(User));
+	if (user == NULL)
+		return NULL;
+
+	strcpy(user->username, name);
+	strcpy(user->password, pass);
+	user->randomNum = randomNum;
+	strcpy(user->securityAnswer, ans);
+
+	return user;
+
+}
 
 User* createUser(char *name, char* pass, char* ans){
 
 	srand(time(NULL));
-	int randomNum = rand(), passInt;
+	int randomNum = rand();
 	char encryptedPass[ENC_PASS_LEN + 1];
 	User* user = malloc(sizeof(User));
 	if (user == NULL)
