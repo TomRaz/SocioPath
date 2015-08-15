@@ -76,3 +76,11 @@ logIn_state logIn(Validation *valid, char *username, char* pass){
 	else
 		return Wrong_Pass;
 }
+
+
+void updatePass(Validation *valid, char* username, char* new_pass){
+	User *user = getUser(valid, username);
+	if (user == NULL)
+		printf("\nUser not found in valid.\n");
+	updateUserPass(user, new_pass);
+}

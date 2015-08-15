@@ -17,5 +17,6 @@ void serializeValid(Validation *valid, char *PATH);
 void deserializeValid(Validation *valid, char *PATH);
 void CreateAccount(Validation *valid, char *username, char *password, char *securityAns);
 logIn_state logIn(Validation *valid, char *username, char* pass);
+void updatePass(Validation *valid, char* username, char* new_pass);
 
 #endif

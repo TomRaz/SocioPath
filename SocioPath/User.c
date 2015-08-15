@@ -20,6 +20,12 @@ void passEncrypt(char* pass, int randomNum, char* result){
 	strncpy(result, tmp_pass, strlen(tmp_pass)); //copy tmp_pass to 32 char string
 }
 
+void updateUserPass(User* user, char* new_pass){
+	char encrypted_pass[ENC_PASS_LEN + 1];
+	passEncrypt(new_pass, user->randomNum, encrypted_pass);
+	strcpy(user->password, encrypted_pass);
+}
+
 void getUsername(User *user, char* dest)
 {
 	if (user == NULL || dest == NULL)

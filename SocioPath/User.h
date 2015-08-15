@@ -19,7 +19,7 @@ typedef struct user_t{
 
 } User;
 
-
+void updateUserPass(User* user, char* new_pass);
 void passEncrypt(char *pass, int randomNum, char* result);
 User* createUser(char *name, char* pass, char* ans);
 void getUsername(User *user, char* dest);
