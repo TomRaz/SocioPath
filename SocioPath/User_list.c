@@ -31,12 +31,18 @@ User_list* AddUserToList(User_list* head, char* username, char* password, char* 
 
 int User_list_count(User_list* user_list){
 	int count = 0;
-	if (user_list->usr != NULL)
-		count++;
-	while (user_list->next != NULL && user_list != NULL)
+	//if (user_list->usr != NULL)
+	//	count++;
+	//while (user_list->next != NULL && user_list != NULL)
+	//{
+	//	if (user_list->usr != NULL) count++;
+	//	user_list = user_list->next;
+	//}
+	while (user_list != NULL && user_list->usr != NULL)
 	{
-		if (user_list->usr != NULL) count++;
+		count++;
 		user_list = user_list->next;
+
 	}
 	return count;
 }

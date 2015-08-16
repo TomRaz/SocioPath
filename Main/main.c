@@ -29,7 +29,7 @@ int main(){
 	deserializeValid(valid, "validation.txt");
 	int count = ValidationUserCount(valid);
 	
-	printf("\n%d\n", count);
+	//printf("\n%d\n", count);
 	
 	do
 	{

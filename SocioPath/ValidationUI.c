@@ -75,7 +75,7 @@ bool getLoginString(char *username, char *password){
 		username[0] = c;
 		return FALSE;
 	}*/
-	while (c != 13){
+	while (c != 13 && i<1000){
 		printf("%c", c);
 		if (c == ':' && pass_flag == FALSE)
 			if (d = getch() == ':'){
@@ -111,7 +111,7 @@ bool getLoginString(char *username, char *password){
 
 }
 
-Pass_menu getPass(char* password)
+Pass_menu getPass(Validation* valid, char* password)
 		{
 			char tmp[PASS_LEN+1] = { 0 };
 			int len = 0;
@@ -124,7 +124,10 @@ Pass_menu getPass(char* password)
 				if (tmp[0] == '$')
 					return EXIT_APP;
 				if (tmp[0] == '#')
-					return MAIN_SCREEN;
+				{
+					MainLoginDialog(valid);
+					exit_app(valid);
+				}
 				if (len < 8)
 					printf("password not long enough.\n");
 			} while (len !=8);
@@ -139,13 +142,13 @@ bool getNewPass(Validation *valid, char* password, char* username){
 	bool pass1_test, pass2_test;
 	printf("Hello %s, Please enter your new password:\n", username);
 
-	pass1_test = getPass(pass1);
+	pass1_test = getPass(valid, pass1);
 	if (strchr(pass1, '#') != NULL)
 		return FALSE;
 	if (strchr(pass1, '#') != NULL)
 		exit_app(valid);
 	printf("Please enter password again for confirmation:\n");
-	pass2_test = getPass(pass2);
+	pass2_test = getPass(valid ,pass2);
 	if (pass1_test == TRUE && pass2_test == TRUE)
 	{
 		if (strcmp(pass1, pass2) == 0)
@@ -271,7 +274,7 @@ logIn_state handleWrongPass(Validation *valid, char* username){
 	char pass[PASS_LEN + 1];
 	Pass_menu pass_menu1, recover1;
 	wrongPassMenu();
-	pass_menu1 = getPass(pass);
+	pass_menu1 = getPass(valid, pass);
 	switch (pass_menu1){
 	case GOOD:
 	{
@@ -346,6 +349,7 @@ Username_test getNewUsername(Validation *valid, char* username){
 Pass_menu recoverPass(Validation *valid, char* username){
 	char good_answer[SECURITY_ANS_LEN + 1], tmp_answer[SECURITY_ANS_LEN + 1], new_pass[PASS_LEN + 1];
 	User* user = getUser(valid, username);
+	int count = 0;
 	getSecurityAns(user, good_answer); //From database
 	
 	getNewSecurityAns(tmp_answer); //new user input
@@ -353,14 +357,32 @@ Pass_menu recoverPass(Validation *valid, char* username){
 		return MAIN_SCREEN;
 	if (tmp_answer[0] == '$')
 		return EXIT_APP;
-	if (strcmp(good_answer, tmp_answer) == 0)
-	{
-		printf("%s, your answer is correct. Please select a new password.\n", username);
-		getNewPass(valid, new_pass, username);
-		updatePass(valid, username, new_pass);
-		printf("Password updated.\n");
-		return GOOD;
-	}
+	do {
+		if (strcmp(good_answer, tmp_answer) == 0)
+		{
+			printf("%s, your answer is correct. Please select a new password.\n", username);
+
+			bool newpass;
+			do{
+				newpass = getNewPass(valid, new_pass, username);
+			} while (newpass != TRUE);
+			updatePass(valid, username, new_pass);
+			printf("Password updated.\n");
+			return GOOD;
+		}
+		else{
+			printf("Wrong answer, please try again.\n");
+			count++;
+			getNewSecurityAns(tmp_answer); //new user input
+			if (tmp_answer[0] == '#')
+				return MAIN_SCREEN;
+			if (tmp_answer[0] == '$')
+				exit_app(valid);
+		}
+	
+	} while (count < 2);
+		printf("Too many wrong answers, Goodbye.\n");
+		exit_app(valid);
 	
 
 }
