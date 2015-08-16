@@ -122,7 +122,7 @@ char** readAllLines(char* path, int *lines){
 
     //check if file exists
     if (fh == NULL){
-        printf("file does not exists %s", path);
+        printf("file does not exists %s\n", path);
         return 0;
     }
 

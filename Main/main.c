@@ -27,6 +27,10 @@ int main(){
 	char sec[SECURITY_ANS_LEN];
 	Validation *valid = createValidation();
 	deserializeValid(valid, "validation.txt");
+	int count = ValidationUserCount(valid);
+	
+	printf("\n%d\n", count);
+	
 	do
 	{
 		a = MainLoginDialog(valid);

@@ -45,8 +45,7 @@ void serializeValid(Validation *valid, char *path){
 
 	for (int i = 0; i < user_num; i++){
 		fprintf(f, "%s", items[i]);
-	/*	if (i != user_num - 1)
-			fprintf(f, "\n");*/
+		fprintf(f, "\n");
 	}
 	free2Darr(items, user_num);
 	fclose(f);

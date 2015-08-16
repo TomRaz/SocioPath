@@ -134,12 +134,16 @@ Pass_menu getPass(char* password)
 		}
 }
 
-bool getNewPass(char* password, char* username){
+bool getNewPass(Validation *valid, char* password, char* username){
 	char pass1[PASS_LEN+1], pass2[PASS_LEN+1];
 	bool pass1_test, pass2_test;
 	printf("Hello %s, Please enter your new password:\n", username);
 
 	pass1_test = getPass(pass1);
+	if (strchr(pass1, '#') != NULL)
+		return FALSE;
+	if (strchr(pass1, '#') != NULL)
+		exit_app(valid);
 	printf("Please enter password again for confirmation:\n");
 	pass2_test = getPass(pass2);
 	if (pass1_test == TRUE && pass2_test == TRUE)
@@ -178,7 +182,7 @@ bool newUserUI(Validation *valid)
 	usr_tst = getNewUsername(valid, username);
 
 	do {
-		good_pass = getNewPass(password, username);
+		good_pass = getNewPass(valid, password, username);
 
 	} while (good_pass != TRUE);
 
@@ -271,7 +275,7 @@ logIn_state handleWrongPass(Validation *valid, char* username){
 	switch (pass_menu1){
 	case GOOD:
 	{
-		ans = LOGIN_GOOD;
+		ans = logIn(valid, username, pass);
 		break;
 	}
 	case BAD:
@@ -287,7 +291,7 @@ logIn_state handleWrongPass(Validation *valid, char* username){
 	case MAIN_SCREEN:
 	{
 
-		break;
+		exit_app(valid);
 	}
 	case EXIT_APP:
 	{
@@ -324,6 +328,7 @@ Username_test getNewUsername(Validation *valid, char* username){
 	if (test != NULL){
 		printf("username taken, please try again.\n");
 		ret= EXISTS;
+		continue;
 	}
 	if (checkUserValidity(tmp_username) == TRUE)
 	{
@@ -351,7 +356,7 @@ Pass_menu recoverPass(Validation *valid, char* username){
 	if (strcmp(good_answer, tmp_answer) == 0)
 	{
 		printf("%s, your answer is correct. Please select a new password.\n", username);
-		getNewPass(new_pass, username);
+		getNewPass(valid, new_pass, username);
 		updatePass(valid, username, new_pass);
 		printf("Password updated.\n");
 		return GOOD;

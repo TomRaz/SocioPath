@@ -5,7 +5,7 @@
 	#include "../Common/consts.h"
 
 
-User_list* createUser_list(User *usr){//removed ()
+User_list* createUser_list(User *usr){
 	User_list *ans = malloc(sizeof(User_list));
 	ans->usr = usr;
 	ans->next = NULL;
@@ -33,9 +33,9 @@ int User_list_count(User_list* user_list){
 	int count = 0;
 	if (user_list->usr != NULL)
 		count++;
-	while (user_list->next != NULL)
+	while (user_list->next != NULL && user_list != NULL)
 	{
-		count++;
+		if (user_list->usr != NULL) count++;
 		user_list = user_list->next;
 	}
 	return count;
@@ -46,7 +46,7 @@ char** serializeUser_list(User_list *user_list){
 	int i,item_num = User_list_count(user_list);
 	User_list* curr = user_list;
 	char **result = alloc2Darr(item_num, max_usr_str_len);
-	for (i = 0; i < item_num; i++){
+	for (i = 0; i < item_num && curr->usr != NULL; i++){
 		strcpy(result[i], SerializeUser(curr->usr));
 		curr = curr->next;
 	}
