@@ -46,7 +46,7 @@ bool MainLoginDialog(Validation *valid){
 	}
 	case 3:
 	{
-		return FALSE; //exit app
+		exit_app(valid); //exit app
 	}
 	}
 	return TRUE;
@@ -158,7 +158,7 @@ bool getNewPass(char* password, char* username){
 
 bool getNewSecurityAns(char *ans){
 	char tmp[SECURITY_ANS_LEN+1];
-	printf("Question: Where did you perform your last air guitar jam?\n Answer: ");
+	printf("Question: Where did you perform your last air guitar jam?\nAnswer: ");
 	fflush(stdin);
 	fgets(tmp, SECURITY_ANS_LEN, stdin);
 	strtok(tmp, "\n");
@@ -216,7 +216,7 @@ logIn_state LoginUI(Validation *valid)
 			printf("\nInput:");
 			login_str = getLoginString(user, pass);
 			if (user[0] == '$')
-				exit(0);
+				exit_app(valid);
 			if (user[0] == '#')
 				return MainLoginDialog(valid);
 			if (login_str == FALSE){
@@ -310,13 +310,13 @@ Username_test getNewUsername(Validation *valid, char* username){
 	printf("Input: ");
 	fflush(stdin);
 	fgets(tmp_username, sizeof(tmp_username), stdin);
-	printf("%s", tmp_username);
+	printf("\n");
 	if (tmp_username[0] == '$')
-		exit(0);
+		exit_app(valid);
 	if (tmp_username[0] == '#')
 	{
 		MainLoginDialog(valid);
-		exit(0);
+		exit_app(valid);
 	}
 	strtok(tmp_username, "\n");
 
@@ -358,4 +358,10 @@ Pass_menu recoverPass(Validation *valid, char* username){
 	}
 	
 
+}
+
+void exit_app(Validation *valid){
+	serializeValid(valid, "validation.txt");
+	printf("Thank you for using Sociopath, you sociopath.\n");
+	exit(0);
 }

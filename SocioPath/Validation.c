@@ -16,8 +16,8 @@ int ValidationUserCount(Validation *valid){
 
 Validation* createValidation(){ //Removed (User *usr)
 	
-	
-	User_list* user_l = createUser_list();
+	User* usr = NULL;
+	User_list* user_l = createUser_list(usr);
 	Validation* valid = malloc(sizeof(Validation));
 	valid->head = user_l;
 	return valid;
@@ -37,15 +37,19 @@ User* getUser(Validation* valid, char* username){
 	}
 
 
-void serializeValid(Validation *valid, char *PATH){
+void serializeValid(Validation *valid, char *path){
+	FILE *f = fopen(path, "w");
+	SOCIO_ASSERT(f, "Error opening profiles.txt file");
 	char** items = serializeUser_list(valid->head);
 	int i,user_num = ValidationUserCount(valid);
-	for (i = 0; i < user_num; i++){
-		//writeToFile(items[i], PATH);
-	}
 
-	/*Use common funcs to write to file*/
+	for (int i = 0; i < user_num; i++){
+		fprintf(f, "%s", items[i]);
+	/*	if (i != user_num - 1)
+			fprintf(f, "\n");*/
+	}
 	free2Darr(items, user_num);
+	fclose(f);
 }
 void deserializeValid(Validation *valid, char *PATH){
 	int i, lines;

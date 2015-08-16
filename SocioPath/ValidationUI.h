@@ -20,6 +20,7 @@ Pass_menu recoverPass(Validation *valid,char* user);
 bool getNewPass(char* password, char* username);
 bool getLoginString(char *username, char *password);
 logIn_state handleWrongPass(Validation *valid, char* username);
+void exit_app(Validation *valid);
 
 
 #endif

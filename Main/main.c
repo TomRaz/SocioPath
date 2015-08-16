@@ -26,7 +26,7 @@ int main(){
 
 	char sec[SECURITY_ANS_LEN];
 	Validation *valid = createValidation();
-
+	deserializeValid(valid, "validation.txt");
 	do
 	{
 		a = MainLoginDialog(valid);

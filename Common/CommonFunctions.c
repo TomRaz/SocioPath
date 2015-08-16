@@ -140,7 +140,7 @@ char** readAllLines(char* path, int *lines){
         }
         int lineLength = strlen(line);
         res[*lines] = malloc(sizeof(char)*lineLength);
-        strncpy(res[*lines], line, lineLength - 1); //copy without the /n
+        strncpy(res[*lines], line, lineLength-1); //copy without the /n
         res[*lines][lineLength - 1] = '\0';
         (*lines)++;
     }

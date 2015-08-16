@@ -5,20 +5,23 @@
 	#include "../Common/consts.h"
 
 
-User_list* createUser_list(){//removed ()
+User_list* createUser_list(User *usr){//removed ()
 	User_list *ans = malloc(sizeof(User_list));
-	ans->usr = NULL;
+	ans->usr = usr;
 	ans->next = NULL;
 	
 	return ans;
 }
 User_list* AddUserToList(User_list* head, char* username, char* password, char* securityAnswer){
+	User* Newuser = createUser(username, password, securityAnswer);
 	if (head->usr == NULL){
-		head->usr = createUser(username, password, securityAnswer);
+		//head->usr = createUser(username, password, securityAnswer);
+		head->usr = Newuser;
 	}
 	else{
-	User_list* new_item = createUser_list();
-	new_item->usr = createUser(username, password, securityAnswer);
+
+	User_list* new_item = createUser_list(Newuser);
+	//new_item->usr = createUser(username, password, securityAnswer);
 	new_item->next = head->next;
 	head->next = new_item;
 }
@@ -28,6 +31,8 @@ User_list* AddUserToList(User_list* head, char* username, char* password, char* 
 
 int User_list_count(User_list* user_list){
 	int count = 0;
+	if (user_list->usr != NULL)
+		count++;
 	while (user_list->next != NULL)
 	{
 		count++;

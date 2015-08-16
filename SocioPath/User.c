@@ -92,9 +92,9 @@ char* SerializeUser(User *user){
 	char rand_num_str[MAX_INT_LEN];
 	
 	
-	if (ans == NULL) return NULL; //is necessary?
+	if (ans == NULL) return NULL; //TODO: use ASSERT Macro
 
-	strcat(ans, user->username);
+	strcpy(ans, user->username);
 	strcat(ans, SEPERATOR);
 	strcat(ans, user->password);
 	strcat(ans, SEPERATOR);
@@ -108,7 +108,7 @@ char* SerializeUser(User *user){
 
 User* DeserializeUser(char *str){
 	
-	char** res = splitStr(str, USR_WRD_CNT, SECURITY_ANS_LEN, SEPERATOR);
+	char** res = splitStr(str, VALID_WRD_CNT, SECURITY_ANS_LEN, SEPERATOR);
     if (str == NULL || res == NULL){
         return NULL; //is necessary?
     }
