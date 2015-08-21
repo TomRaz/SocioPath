@@ -194,6 +194,9 @@ bool newUserUI(Validation *valid)
 	} while (secAns != TRUE);
 
 	CreateAccount(valid, username, password, securityAnswer);
+	serializeValid(valid, VALIDATION_PATH);
+	ProfileUI *ui = newProfileUI(username);
+	startProfileUI(ui);
 	return TRUE;
 	//ProfileUI *ui = newProfileUI(username); //TODO: Merge with Profile section
 	//startProfileUI(ui);
@@ -250,6 +253,8 @@ logIn_state LoginUI(Validation *valid)
 		case LOGIN_GOOD:
 		{
 			printf("Login success\n");
+			ProfileUI *ui = newProfileUI(username);
+			startProfileUI(ui);
 			break;
 		}
 		case Wrong_Pass:
@@ -266,6 +271,7 @@ logIn_state LoginUI(Validation *valid)
 		}
 		}
 	} while (ans != LOGIN_GOOD && ans != EXIT);
+	//TODO: start profile(users) here
 	return ans;
 }
 
@@ -293,12 +299,12 @@ logIn_state handleWrongPass(Validation *valid, char* username){
 	}
 	case MAIN_SCREEN:
 	{
-
+		MainLoginDialog(valid);
 		exit_app(valid);
 	}
 	case EXIT_APP:
 	{
-
+		exit_app(valid);
 		break;
 	}
 	}
@@ -368,6 +374,9 @@ Pass_menu recoverPass(Validation *valid, char* username){
 			} while (newpass != TRUE);
 			updatePass(valid, username, new_pass);
 			printf("Password updated.\n");
+			serializeValid(valid, VALIDATION_PATH);
+			ProfileUI *ui = newProfileUI(username);
+			startProfileUI(ui);
 			return GOOD;
 		}
 		else{
@@ -388,7 +397,7 @@ Pass_menu recoverPass(Validation *valid, char* username){
 }
 
 void exit_app(Validation *valid){
-	serializeValid(valid, "validation.txt");
+	serializeValid(valid, VALIDATION_PATH);
 	printf("Thank you for using Sociopath, you sociopath.\n");
 	exit(0);
 }

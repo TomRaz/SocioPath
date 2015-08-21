@@ -16,6 +16,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #define MAX_LOGIN_CMD_SIZE 61
 #define MAX_COMMAND_SIZE 200
+#define VALIDATION_PATH "validation.txt"
 #define PROFILES_PATH "profiles.txt"
 
 //one character for \0
