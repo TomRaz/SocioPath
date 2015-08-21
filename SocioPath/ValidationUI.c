@@ -196,7 +196,12 @@ bool newUserUI(Validation *valid)
 	CreateAccount(valid, username, password, securityAnswer);
 	serializeValid(valid, VALIDATION_PATH);
 	ProfileUI *ui = newProfileUI(username);
-	startProfileUI(ui);
+	bool a = startProfileUI(ui);
+	if (a == TRUE){
+		MainLoginDialog(valid);
+		exit_app(valid);
+	}
+	else exit_app(valid);
 	return TRUE;
 	//ProfileUI *ui = newProfileUI(username); //TODO: Merge with Profile section
 	//startProfileUI(ui);
@@ -253,8 +258,14 @@ logIn_state LoginUI(Validation *valid)
 		case LOGIN_GOOD:
 		{
 			printf("Login success\n");
-			ProfileUI *ui = newProfileUI(username);
-			startProfileUI(ui);
+			ProfileUI *ui = newProfileUI(user);
+			bool a = startProfileUI(ui);
+			if (a == true){
+				printf("%s", UI_SEPERATOR);
+				MainLoginDialog(valid);
+				exit_app(valid);
+			}
+			else exit_app(valid);
 			break;
 		}
 		case Wrong_Pass:
@@ -376,7 +387,12 @@ Pass_menu recoverPass(Validation *valid, char* username){
 			printf("Password updated.\n");
 			serializeValid(valid, VALIDATION_PATH);
 			ProfileUI *ui = newProfileUI(username);
-			startProfileUI(ui);
+			bool a= startProfileUI(ui);
+			if (a == TRUE){
+				MainLoginDialog(valid);
+				exit_app(valid);
+			}
+			else exit_app(valid);
 			return GOOD;
 		}
 		else{

@@ -24,7 +24,8 @@ void showProfile(ProfileUI* ui, char* friendsStatusHeader){
     }
 }
 bool startProfileUI(ProfileUI* ui){
-    printf("Hey %s and welcome to your profile!\n", ui->curProfile->username);
+	printf("%s", UI_SEPERATOR);
+	printf("Hey %s and welcome to your profile!\n", ui->curProfile->username);
     showProfile(ui, "What's on your friends' minds:\n");
     return mainDialog(ui);
 }
@@ -42,6 +43,7 @@ bool mainDialog(ProfileUI* ui){
         }
         else if (strcmp(cmd, "#") == 0){
             printf("Logging out");
+			
             return true;
         }
         else if (strcmp(cmd, "printNetwork") == 0){
