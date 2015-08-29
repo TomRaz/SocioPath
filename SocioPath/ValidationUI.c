@@ -26,17 +26,18 @@ void startProfile(Validation *valid, char* username){
 }
 
 int startValidationUI(){
-	int choice;
+	char choice;
 	printWelcome();
 	do{
 		printf("What would you like to do next? \n");
 		printf("1. Log in \n2. Create a new account \n3. Exit the app\n\n");
 		printf("Input:");
-		scanf("%d", &choice);
-		if (choice < 1 || choice > 3)
+
+		scanf("%c", &choice);
+		if (choice-'0' < 1 || choice-'0' > 3)
 			printf("Please select a valid option\n");
-	} while (choice < 1 || choice > 3);
-	return choice;
+	} while (choice - '0' < 1 || choice - '0' > 3);
+	return choice-'0';
 }
 
 bool MainLoginDialog(Validation *valid){
@@ -152,14 +153,19 @@ Pass_menu getPass(Validation* valid, char* password)
 
 bool getNewPass(Validation *valid, char* password, char* username){
 	char pass1[PASS_LEN+1], pass2[PASS_LEN+1];
-	bool pass1_test, pass2_test;
+	bool pass1_test, pass2_test, pass_valid;
 	printf("Hello %s, Please enter your new password:\n", username);
+	do{
+		pass1_test = getPass(valid, pass1);
+		if (strchr(pass1, '#') != NULL)
+			return FALSE;
+		if (strchr(pass1, '#') != NULL)
+			exit_app(valid);
+		pass_valid = checkPassValidity(pass1);
+		if (pass_valid == FALSE)
+			printf("\nInvalid password entered, please try again.\n");
+	} while (pass_valid == FALSE);
 
-	pass1_test = getPass(valid, pass1);
-	if (strchr(pass1, '#') != NULL)
-		return FALSE;
-	if (strchr(pass1, '#') != NULL)
-		exit_app(valid);
 	printf("Please enter password again for confirmation:\n");
 	pass2_test = getPass(valid ,pass2);
 	if (pass1_test == TRUE && pass2_test == TRUE)
@@ -244,7 +250,7 @@ logIn_state LoginUI(Validation *valid)
 				return MainLoginDialog(valid);
 			if (login_str == FALSE){
 				if (getUser(valid, user) == NULL){
-					printf("Username doesn't Exist, please try again\n");
+					printf("Username doesn't Exist, please try again\n\n");
 					printf("Please enter your username and password in the format 'username::password'.\n ");
 				}
 				else{
@@ -265,7 +271,8 @@ logIn_state LoginUI(Validation *valid)
 		{
 		case LOGIN_GOOD:
 		{
-	        startProfile(valid, user);
+
+			startProfile(valid, user);
 			break;
 		}
 		case Wrong_Pass:
