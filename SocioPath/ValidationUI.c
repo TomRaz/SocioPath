@@ -13,6 +13,17 @@ void printToggle(){
 	printf("To exit the app please enter '$'\n");
 }
 
+void startProfile(Validation *valid, char* username){
+    ProfileUI *ui = newProfileUI(username);
+    bool a = startProfileUI(ui);
+    if (a == TRUE){
+        MainLoginDialog(valid);
+        exit_app(valid);
+    }
+    else 
+        exit_app(valid);
+}
+
 int startValidationUI(){
 	int choice;
 	printWelcome();
@@ -192,25 +203,11 @@ bool newUserUI(Validation *valid)
 	CreateAccount(valid, username, password, securityAnswer);
 	serializeValid(valid, VALIDATION_PATH);
 	
-	ProfileUI *ui = newProfileUI(username);
-	bool a = startProfileUI(ui);
-	if (a == true){
-		printf("%s", UI_SEPERATOR);
-		MainLoginDialog(valid);
-		exit_app(valid);
-	}
-	else exit_app(valid);
-	
-	/*ProfileUI *ui = newProfileUI(username);
-	bool a = startProfileUI(ui);
-	if (a == TRUE){
-		MainLoginDialog(valid);
-		exit_app(valid);
-	}
-	else exit_app(valid);*/
+    startProfile(valid, username);
 	return TRUE;
-
 }
+
+
 
 void wrongPassMenu()
 {
@@ -263,14 +260,8 @@ logIn_state LoginUI(Validation *valid)
 		case LOGIN_GOOD:
 		{
 			printf("Login success\n");
-			ProfileUI *ui = newProfileUI(user);
-			bool a = startProfileUI(ui);
-			if (a == true){
-				printf("%s", UI_SEPERATOR);
-				MainLoginDialog(valid);
-				exit_app(valid);
-			}
-			else exit_app(valid);
+
+            startProfile(valid, username);
 			break;
 		}
 		case Wrong_Pass:
@@ -390,14 +381,7 @@ Pass_menu recoverPass(Validation *valid, char* username){
 			} while (newpass != TRUE);
 			updatePass(valid, username, new_pass);
 			printf("Password updated.\n");
-			serializeValid(valid, VALIDATION_PATH);
-			ProfileUI *ui = newProfileUI(username);
-			bool a= startProfileUI(ui);
-			if (a == TRUE){
-				MainLoginDialog(valid);
-				exit_app(valid);
-			}
-			else exit_app(valid);
+			serializeValid(valid, VALIDATION_PATH);		
 			return GOOD;
 		}
 		else{

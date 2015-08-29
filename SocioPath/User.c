@@ -92,7 +92,7 @@ char* SerializeUser(User *user){
 	char rand_num_str[MAX_INT_LEN];
 	
 	
-	if (ans == NULL) return NULL; //TODO: use ASSERT Macro
+	if (ans == NULL) return NULL; 
 
 	strcpy(ans, user->username);
 	strcat(ans, SEPERATOR);
