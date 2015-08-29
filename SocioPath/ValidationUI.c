@@ -32,8 +32,8 @@ int startValidationUI(){
 		printf("What would you like to do next? \n");
 		printf("1. Log in \n2. Create a new account \n3. Exit the app\n\n");
 		printf("Input:");
-		choice = getch();
-		printf("%c", choice);
+
+		scanf("%c", &choice);
 		if (choice-'0' < 1 || choice-'0' > 3)
 			printf("Please select a valid option\n");
 	} while (choice - '0' < 1 || choice - '0' > 3);
@@ -250,7 +250,7 @@ logIn_state LoginUI(Validation *valid)
 				return MainLoginDialog(valid);
 			if (login_str == FALSE){
 				if (getUser(valid, user) == NULL){
-					printf("Username doesn't Exist, please try again\n\n21");
+					printf("Username doesn't Exist, please try again\n\n");
 					printf("Please enter your username and password in the format 'username::password'.\n ");
 				}
 				else{
