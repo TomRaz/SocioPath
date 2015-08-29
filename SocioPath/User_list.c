@@ -15,13 +15,11 @@ User_list* createUser_list(User *usr){
 User_list* AddUserToList(User_list* head, char* username, char* password, char* securityAnswer){
 	User* Newuser = createUser(username, password, securityAnswer);
 	if (head->usr == NULL){
-		//head->usr = createUser(username, password, securityAnswer);
 		head->usr = Newuser;
 	}
 	else{
 
 	User_list* new_item = createUser_list(Newuser);
-	//new_item->usr = createUser(username, password, securityAnswer);
 	new_item->next = head->next;
 	head->next = new_item;
 }
@@ -31,13 +29,7 @@ User_list* AddUserToList(User_list* head, char* username, char* password, char* 
 
 int User_list_count(User_list* user_list){
 	int count = 0;
-	//if (user_list->usr != NULL)
-	//	count++;
-	//while (user_list->next != NULL && user_list != NULL)
-	//{
-	//	if (user_list->usr != NULL) count++;
-	//	user_list = user_list->next;
-	//}
+
 	while (user_list != NULL && user_list->usr != NULL)
 	{
 		count++;
