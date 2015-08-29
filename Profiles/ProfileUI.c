@@ -48,7 +48,7 @@ bool mainDialog(ProfileUI* ui){
             return false;
         }
         else if (strcmp(cmd, "#") == 0){
-            printf("Logging out");
+            printf("Logging out\n%s", UI_SEPERATOR);
 			
             return true;
         }
@@ -138,14 +138,15 @@ void searchProfile(ProfileUI* ui, char* name){
     int len;
     Profile** profiles = searchByName(ui->profileManager, name, &len);
     if (len == 0){
-        printf("The search for \"%s\" has found no users in SocioPath network :\n", name);
+        printf("\nThe search for \"%s\" has found no users in SocioPath network :\n", name);
         return;
     }
-    printf("The search for \"%s\" has found the following users within the SocioPath network :\n", name);
+    printf("\nThe search for \"%s\" has found the following users within the SocioPath network :\n", name);
     for (int i = 0; i < len; i++){
         printf("%d. %s\n", i+1, profiles[i]->username);
     }
     free(profiles);
+	printf("\n");
 }
 
 void checkFriendStatus(ProfileUI* ui, char* name){
