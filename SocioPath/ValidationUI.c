@@ -16,6 +16,7 @@ void printToggle(){
 void startProfile(Validation *valid, char* username){
     ProfileUI *ui = newProfileUI(username);
     bool a = startProfileUI(ui);
+	saveData(ui);
     if (a == true){
         MainLoginDialog(valid);
         exit_app(valid);
@@ -41,8 +42,12 @@ int startValidationUI(){
 bool MainLoginDialog(Validation *valid){
 	int mode;
 	logIn_state state;
-	
-	mode = startValidationUI();
+	do{
+		mode = startValidationUI();
+		if (mode <1 || mode > 3)
+			printf("\nWrong input, try again.\n");
+	} while (mode >= 1 && mode <= 3);
+
 	printf("%s", UI_SEPERATOR);
 	switch (mode){
 	case 1: //Login
@@ -58,6 +63,10 @@ bool MainLoginDialog(Validation *valid){
 	case 3:
 	{
 		exit_app(valid); //exit app
+	}
+	default:
+	{
+		printf("\nWrong input, try again.\n");
 	}
 	}
 	return TRUE;
