@@ -218,14 +218,98 @@ void sendFriendRequest(ProfileUI* ui, char* name){
     printf("Friend request sent to %s\n", name);
 }
 
+void printPrefix(int order){
+    switch (order){
+    case 0:
+        printf("Your friends:");
+        return;
+    case 1:
+        printf("Friends of your friends:");
+        return;
+    case 2:
+        printf("3rd circle friends:");
+        return;
+    }
+    printf("Your %dth friends:", order);
+}
+
+
+bool filterAlreadyPrintedFriends(Profile* friend, ProfileListItem* alreadyPrinted){
+    while (alreadyPrinted != NULL){
+        if (strcmp(friend->username, alreadyPrinted->profile->username) == 0){
+            return true;
+        }
+    }
+    return false;
+}
+
+
+ProfileListItem* getUserFilteredFriends(ProfileManager* manager, Profile* user, ProfileListItem* blackList){
+    int numOfFriends;
+    Profile** friends = getUsersFriends(manager, user, &numOfFriends);
+    ProfileListItem* res = NULL;
+    for (int i = 0; i < numOfFriends; i++){
+        Profile* curProfile = friends[i];
+        if (!filterAlreadyPrintedFriends(curProfile, blackList)){
+            addProfileItem(res, curProfile);
+        }
+    }
+    return res;
+
+}
+
 
 void printNetwork(ProfileUI* ui){
     //TODO:figure out how many levels do we need here? is it until we don't find any more people? 
     //complete the function
     printf("Dear %s, your soical network is:\n", ui->curProfile->username);
     printf("You: %s\n", ui->curProfile->username);
+
+    ProfileListItem* alreadyPrinted;
+    bool bCont = true;
+    int order = 0;
+    while (true){
+        ProfileListItem* rankFriends = getUserFilteredFriends(ui->profileManager, ui->curProfile, alreadyPrinted);
+        if (rankFriends == NULL){
+            bCont = false;
+            break;
+        }
+        printPrefix(order++);
+        while (rankFriends++ != NULL){
+            printf("%s, ", rankFriends->profile->username);
+            addProfileItem(alreadyPrinted, rankFriends->profile);
+        }
+    }
+    
+
+
+
+
+    /*
     int numOfFriends;
+
     Profile** friends = getUsersFriends(ui->profileManager, ui->curProfile, &numOfFriends);
+
+    ProfileListItem* alreadyPrinted = NULL;
+    int curRank = 0;
+    while (true){
+        for (int i = 0; i < numOfFriends; i++)
+        {
+            bool alreadyPrintedPrefix = false;
+            Profile* curProfile = friends[i];
+            friends = getUsersFriends(ui->profileManager, curProfile, &numOfFriends);
+            for (int j = 0; j < numOfFriends; j++){
+                if (!filterAlreadyPrintedFriends(friends[j], alreadyPrinted)){
+                    if (!alreadyPrintedPrefix){
+                        printf("%d circle friends:", curRank);
+                    }
+                    printf("%s", curProfile->username);
+                    addProfileItem(alreadyPrinted, friends[j]);
+                }
+            }
+
+        }
+    }
     
     printf("Your Friends:");
     for (int i = 0; i < numOfFriends; i++){
@@ -234,26 +318,7 @@ void printNetwork(ProfileUI* ui){
             printf(",");
     }
     printf("\n");
+    */
 
 }
 
-bool friendInList(char* name, FriendRef* list){
-    return true;
-}
-
-/*
-void printNetworkRec(int order, FriendRef* alreadyPrinted, FriendRef* curRankFriends){
-    int numOfFriends;
-    Profile** friends = getUsersFriends(ui->profileManager, ui->curProfile, &numOfFriends);
-
-    for (int i = 0; i < numOfFriends; i++){
-        if (friendInList(friends[i]->username, alreadyPrinted)){
-            continue;
-        }
-        curRankFriends->next = 
-        //add to alreadyPrinted
-
-    }
-
-}
-*/

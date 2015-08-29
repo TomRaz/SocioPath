@@ -2,7 +2,7 @@
 #include "../Common/CommonFunctions.h"
 #include <stdio.h>
 
-ProfileListItem* add(ProfileListItem* list, Profile* item){
+ProfileListItem* addProfileItem(ProfileListItem* list, Profile* item){
     ProfileListItem* listItem = malloc(sizeof(ProfileListItem));
     SOCIO_ASSERT_MEM(listItem);
     listItem->profile = item;
@@ -14,7 +14,7 @@ ProfileListItem* add(ProfileListItem* list, Profile* item){
 }
 
 void addProfile(ProfileManager* manager, Profile* profile){
-    manager->head = add(manager->head, profile);
+    manager->head = addProfileItem(manager->head, profile);
     manager->profilesCount += 1;
 }
 

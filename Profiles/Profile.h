@@ -38,7 +38,7 @@ typedef struct profile_list_t{
     struct Profile *next;
 }ProfileListItem;
 
-ProfileListItem* add(ProfileListItem* list, Profile* item);
+ProfileListItem* addProfileItem(ProfileListItem* list, Profile* item);
 
 
 
