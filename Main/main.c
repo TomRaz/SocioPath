@@ -29,16 +29,7 @@ int main(){
 	deserializeValid(valid, VALIDATION_PATH);
 	int count = ValidationUserCount(valid);
 	
-	//printf("\n%d\n", count);
-	/*char pass1[PASS_LEN + 1], pass2[PASS_LEN + 1], result1[ENC_PASS_LEN + 1], result2[ENC_PASS_LEN + 1];
-	int num = 12345;
-	strcpy(pass1, "abcdA123");
-	strcpy(pass2, "abccA123");
-	passEncrypt(pass1, num, result1);
-	passEncrypt(pass2, num, result2);
-	printf("\n%s", result1);
-	printf("\n%s", result2);*/
-	
+
 	
 	MainLoginDialog(valid);
 	//startUI();

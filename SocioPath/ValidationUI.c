@@ -70,11 +70,7 @@ bool getLoginString(char *username, char *password){
 	bool pass_flag = FALSE;
 	char c,d ;
 	c = getch();
-	/*if (c == '$' || c == '#')
-	{
-		username[0] = c;
-		return FALSE;
-	}*/
+
 	while (c != 13 && i<1000){
 		printf("%c", c);
 		if (c == ':' && pass_flag == FALSE)
@@ -195,16 +191,25 @@ bool newUserUI(Validation *valid)
 
 	CreateAccount(valid, username, password, securityAnswer);
 	serializeValid(valid, VALIDATION_PATH);
+	
 	ProfileUI *ui = newProfileUI(username);
+	bool a = startProfileUI(ui);
+	if (a == true){
+		printf("%s", UI_SEPERATOR);
+		MainLoginDialog(valid);
+		exit_app(valid);
+	}
+	else exit_app(valid);
+	
+	/*ProfileUI *ui = newProfileUI(username);
 	bool a = startProfileUI(ui);
 	if (a == TRUE){
 		MainLoginDialog(valid);
 		exit_app(valid);
 	}
-	else exit_app(valid);
+	else exit_app(valid);*/
 	return TRUE;
-	//ProfileUI *ui = newProfileUI(username); //TODO: Merge with Profile section
-	//startProfileUI(ui);
+
 }
 
 void wrongPassMenu()
@@ -225,8 +230,8 @@ logIn_state LoginUI(Validation *valid)
 	do{
 
 		fflush(stdin);
+		printf("Please enter your username and password in the format 'username::password'.\n ");
 		do{
-			printf("Please enter your username and password in the format 'username::password'.\n ");
 			printToggle();
 			printf("\nInput:");
 			login_str = getLoginString(user, pass);
