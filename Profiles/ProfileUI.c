@@ -215,19 +215,23 @@ void sendFriendRequest(ProfileUI* ui, char* name){
         printf("You already sent a friend request to %s \n", name);
         return;
     }
+    if (strcmp(ui->curProfile->username, name) == 0){
+        printf("It's so sad that you want to be friend of yourself %s \n", name);
+        return;
+    }
     addPendingRequest(prof, ui->curProfile->username);
     printf("Friend request sent to %s\n", name);
 }
 
 void printPrefix(int order){
     switch (order){
-    case 0:
+    case 1:
         printf("Your friends:");
         return;
-    case 1:
+    case 2:
         printf("Friends of your friends:");
         return;
-    case 2:
+    case 3:
         printf("3rd circle friends:");
         return;
     }
@@ -240,19 +244,22 @@ bool filterAlreadyPrintedFriends(Profile* friend, ProfileListItem* alreadyPrinte
         if (strcmp(friend->username, alreadyPrinted->profile->username) == 0){
             return true;
         }
+        alreadyPrinted = alreadyPrinted->next;
     }
     return false;
 }
 
 
-ProfileListItem* getUserFilteredFriends(ProfileManager* manager, Profile* user, ProfileListItem* blackList){
+ProfileListItem* getUserFilteredFriends(ProfileManager* manager, Profile* user, ProfileListItem* blackList, ProfileListItem* res){
     int numOfFriends;
     Profile** friends = getUsersFriends(manager, user, &numOfFriends);
-    ProfileListItem* res = NULL;
+    if (!friends){
+        return NULL;
+    }
     for (int i = 0; i < numOfFriends; i++){
         Profile* curProfile = friends[i];
         if (!filterAlreadyPrintedFriends(curProfile, blackList)){
-            addProfileItem(res, curProfile);
+            res = addProfileItem(res, curProfile);
         }
     }
     return res;
@@ -266,60 +273,33 @@ void printNetwork(ProfileUI* ui){
     printf("Dear %s, your soical network is:\n", ui->curProfile->username);
     printf("You: %s\n", ui->curProfile->username);
 
-    ProfileListItem* alreadyPrinted;
+    ProfileListItem* alreadyPrinted = NULL;
+    ProfileListItem* friendsForNextRound = NULL;
     bool bCont = true;
-    int order = 0;
+    int order = 1;
+
+    friendsForNextRound = addProfileItem(friendsForNextRound, ui->curProfile);
+    alreadyPrinted = addProfileItem(alreadyPrinted, ui->curProfile);
     while (true){
-        ProfileListItem* rankFriends = getUserFilteredFriends(ui->profileManager, ui->curProfile, alreadyPrinted);
+        ProfileListItem* curProfile = friendsForNextRound;
+        ProfileListItem* rankFriends = NULL;
+        while (curProfile != NULL){
+            rankFriends = getUserFilteredFriends(ui->profileManager, curProfile->profile, alreadyPrinted, rankFriends);
+            curProfile = curProfile->next;
+        }
+        
         if (rankFriends == NULL){
             bCont = false;
             break;
         }
         printPrefix(order++);
-        while (rankFriends++ != NULL){
+        while (rankFriends != NULL){
             printf("%s, ", rankFriends->profile->username);
-            addProfileItem(alreadyPrinted, rankFriends->profile);
+            alreadyPrinted = addProfileItem(alreadyPrinted, rankFriends->profile);
+            friendsForNextRound = addProfileItem(friendsForNextRound, rankFriends->profile);
+            rankFriends = rankFriends->next;
         }
+        printf("\n");
     }
-    
-
-
-
-
-    /*
-    int numOfFriends;
-
-    Profile** friends = getUsersFriends(ui->profileManager, ui->curProfile, &numOfFriends);
-
-    ProfileListItem* alreadyPrinted = NULL;
-    int curRank = 0;
-    while (true){
-        for (int i = 0; i < numOfFriends; i++)
-        {
-            bool alreadyPrintedPrefix = false;
-            Profile* curProfile = friends[i];
-            friends = getUsersFriends(ui->profileManager, curProfile, &numOfFriends);
-            for (int j = 0; j < numOfFriends; j++){
-                if (!filterAlreadyPrintedFriends(friends[j], alreadyPrinted)){
-                    if (!alreadyPrintedPrefix){
-                        printf("%d circle friends:", curRank);
-                    }
-                    printf("%s", curProfile->username);
-                    addProfileItem(alreadyPrinted, friends[j]);
-                }
-            }
-
-        }
-    }
-    
-    printf("Your Friends:");
-    for (int i = 0; i < numOfFriends; i++){
-        printf("%s", friends[i]);
-        if (i != numOfFriends - 1)
-            printf(",");
-    }
-    printf("\n");
-    */
-
 }
 
