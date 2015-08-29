@@ -14,11 +14,6 @@ void testProfileManager(){
     freeProfileManager(p);
 }
 
-void startUI(){
-    ProfileUI* ui = newProfileUI("amir");
-    startProfileUI(ui);
-    saveData(ui);
-}
 
 int main(){
 	
@@ -28,10 +23,5 @@ int main(){
 	Validation *valid = createValidation();
 	deserializeValid(valid, VALIDATION_PATH);
 	int count = ValidationUserCount(valid);
-	
-
-	
 	MainLoginDialog(valid);
-	//startUI();
-    //testProfileManager();
 }

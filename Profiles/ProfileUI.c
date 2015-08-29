@@ -2,11 +2,17 @@
 #include "../Common/CommonFunctions.h"
 #include <stdio.h>
 
+
+ProfileManager* gProfileManager;
+
 ProfileUI* newProfileUI(char* username){
     ProfileUI* profileUI = (ProfileUI*)malloc(sizeof(ProfileUI));
     SOCIO_ASSERT_MEM(profileUI);
     //TODO: handle situation in which there is no file, and we create the first one
-    profileUI->profileManager = deserializeProfileManager(PROFILES_PATH);
+    if (gProfileManager == NULL){
+        gProfileManager = deserializeProfileManager(PROFILES_PATH);
+    }
+    profileUI->profileManager = gProfileManager;
     profileUI->curProfile = getProfile(profileUI->profileManager, username);
     if (profileUI->curProfile == NULL){
         profileUI->curProfile = createProfile(profileUI->profileManager, username);
@@ -220,6 +226,7 @@ void printNetwork(ProfileUI* ui){
     printf("You: %s\n", ui->curProfile->username);
     int numOfFriends;
     Profile** friends = getUsersFriends(ui->profileManager, ui->curProfile, &numOfFriends);
+    
     printf("Your Friends:");
     for (int i = 0; i < numOfFriends; i++){
         printf("%s", friends[i]);
@@ -229,3 +236,24 @@ void printNetwork(ProfileUI* ui){
     printf("\n");
 
 }
+
+bool friendInList(char* name, FriendRef* list){
+    return true;
+}
+
+/*
+void printNetworkRec(int order, FriendRef* alreadyPrinted, FriendRef* curRankFriends){
+    int numOfFriends;
+    Profile** friends = getUsersFriends(ui->profileManager, ui->curProfile, &numOfFriends);
+
+    for (int i = 0; i < numOfFriends; i++){
+        if (friendInList(friends[i]->username, alreadyPrinted)){
+            continue;
+        }
+        curRankFriends->next = 
+        //add to alreadyPrinted
+
+    }
+
+}
+*/

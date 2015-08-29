@@ -20,7 +20,6 @@ Profile* deserializeProfile(char** lines){
     strcpy(p->status, lines[1] + STATUS_PREFIX_LEN);
 
     int splittedStrings;
-    //TODO: make sure that splitting works here because of strtok single char issue
     char** res = splitStr2(lines[2] + FRIEND_PREFIX_LENGTH, LIST_SEPERATOR, &splittedStrings);
     for (int i = 0; i < splittedStrings;i++){
         addFriend(p, res[i]);
@@ -86,7 +85,6 @@ void addFriend(Profile* profile, char* friendName){
     profile->friendsCount += 1;
 }
 void addPendingRequest(Profile* profile, char* friendName){
-    //TODO: make this keep the order(add to end of the list)    
     FriendRef* friendRef = (FriendRef*)malloc(sizeof(FriendRef));
     SOCIO_ASSERT_MEM(friendRef);
     strcpy(friendRef->data, friendName);
