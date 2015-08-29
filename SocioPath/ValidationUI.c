@@ -42,11 +42,8 @@ int startValidationUI(){
 bool MainLoginDialog(Validation *valid){
 	int mode;
 	logIn_state state;
-	do{
-		mode = startValidationUI();
-		if (mode <1 || mode > 3)
-			printf("\nWrong input, try again.\n");
-	} while (mode >= 1 && mode <= 3);
+	mode = startValidationUI();
+
 
 	printf("%s", UI_SEPERATOR);
 	switch (mode){
