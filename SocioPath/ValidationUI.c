@@ -16,7 +16,8 @@ void printToggle(){
 void startProfile(Validation *valid, char* username){
     ProfileUI *ui = newProfileUI(username);
     bool a = startProfileUI(ui);
-    if (a == TRUE){
+	saveData(ui);
+    if (a == true){
         MainLoginDialog(valid);
         exit_app(valid);
     }
@@ -29,7 +30,7 @@ int startValidationUI(){
 	printWelcome();
 	do{
 		printf("What would you like to do next? \n");
-		printf("1. Log in \n2.Create a new account \n3.Exit the app\n\n");
+		printf("1. Log in \n2. Create a new account \n3. Exit the app\n\n");
 		printf("Input:");
 		scanf("%d", &choice);
 		if (choice < 1 || choice > 3)
@@ -41,8 +42,12 @@ int startValidationUI(){
 bool MainLoginDialog(Validation *valid){
 	int mode;
 	logIn_state state;
-	
-	mode = startValidationUI();
+	do{
+		mode = startValidationUI();
+		if (mode <1 || mode > 3)
+			printf("\nWrong input, try again.\n");
+	} while (mode >= 1 && mode <= 3);
+
 	printf("%s", UI_SEPERATOR);
 	switch (mode){
 	case 1: //Login
@@ -58,6 +63,10 @@ bool MainLoginDialog(Validation *valid){
 	case 3:
 	{
 		exit_app(valid); //exit app
+	}
+	default:
+	{
+		printf("\nWrong input, try again.\n");
 	}
 	}
 	return TRUE;
@@ -227,7 +236,7 @@ logIn_state LoginUI(Validation *valid)
 	do{
 
 		fflush(stdin);
-		printf("Please enter your username and password in the format 'username::password'.\n ");
+		printf("Please enter your username and password in the format 'username::password'.\n");
 		do{
 			printToggle();
 			printf("\nInput:");
@@ -259,9 +268,7 @@ logIn_state LoginUI(Validation *valid)
 		{
 		case LOGIN_GOOD:
 		{
-			printf("Login success\n");
-
-            startProfile(valid, username);
+	        startProfile(valid, user);
 			break;
 		}
 		case Wrong_Pass:
