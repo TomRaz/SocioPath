@@ -10,6 +10,6 @@
     <ClCompile Include="Profile.c" />
     <ClCompile Include="ProfileManager.c" />
     <ClCompile Include="ProfileUI.c" />
-    <ClCompile Include="CheckRequestsDialog.cpp" />
+    <ClCompile Include="CheckRequestsDialog.c" />
   </ItemGroup>
 </Project>
