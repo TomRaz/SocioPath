@@ -1,0 +1,11 @@
+initial parameters' values:
+a1 = 0.005583 ± 0.000084 a2 = 97.266566 ± 0.003394 
+fitted parameters' values:
+a1 = 0.005583058 ± 0.001678486
+a2 = 97.26517 ± 0.06561496
+cov(a1,a2) = -0.0001020809
+chi^2 = 10.579
+ndf = 5
+chi^2_reduced = 2.1158
+p probability = 0.060399
+>> 
